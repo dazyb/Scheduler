@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="main_vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="370.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCourseController">
+   <children>
+      <Label alignment="CENTER" prefHeight="46.0" prefWidth="416.0" text="Course Details">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox>
+         <children>
+            <AnchorPane prefHeight="0.0" prefWidth="640.0" style="-fx-background-color: blue;" />
+            <AnchorPane prefHeight="9.0" prefWidth="416.0" style="-fx-background-color: red;" />
+         </children>
+      </HBox>
+      <MFXTextField fx:id="coursename_field" floatMode="BORDER" floatingText="CourseName" prefHeight="38.0" prefWidth="405.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXTextField>
+      <HBox prefHeight="30.0" prefWidth="370.0">
+         <children>
+            <MFXTextField fx:id="coursecode_field" floatMode="BORDER" floatingText="CourseCode" prefHeight="38.0" prefWidth="92.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="noStudent_field" floatMode="BORDER" floatingText="No. Students" prefHeight="13.0" prefWidth="81.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </MFXTextField>
+            <MFXComboBox fx:id="level_cbox" floatMode="BORDER" floatingText="Level" prefHeight="52.0" prefWidth="118.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </MFXComboBox>
+         </children>
+      </HBox>
+      <MFXTextField fx:id="lecturername_field" floatMode="BORDER" floatingText="Lecturer's Name" prefHeight="38.0" prefWidth="365.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXTextField>
+      <MFXTextField fx:id="initails_field" floatMode="BORDER" floatingText="Initials">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXTextField>
+      <Label prefHeight="29.0" prefWidth="370.0" text=" -----------------Groupings &amp; Programme(Optional)-----------------">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <MFXTextField fx:id="group_field" floatMode="BORDER" floatingText="Group" prefHeight="38.0" prefWidth="358.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" />
+         </VBox.margin>
+      </MFXTextField>
+      <MFXTextField fx:id="programme_field" floatMode="BORDER" floatingText="Programme" prefHeight="38.0" prefWidth="358.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXTextField>
+      <MFXComboBox fx:id="semester_cbox" floatMode="BORDER" floatingText="Semester(First/Second)" prefHeight="34.0" prefWidth="348.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXComboBox>
+      <AnchorPane prefHeight="47.0" prefWidth="370.0">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         <children>
+            <MFXButton buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" prefHeight="26.0" prefWidth="92.0" rippleColor="#c7b25a" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
+            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue;" text="Add/Update" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
