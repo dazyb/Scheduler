@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
+import application.Login;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -88,6 +89,7 @@ public class HomeController implements Initializable {
 	
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	welcome_message.setText("Welcome, "+Login.Username());
 		setupTableView();	
 	}
     
