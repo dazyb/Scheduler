@@ -9,24 +9,25 @@ import java.util.ResourceBundle;
 
 import application.Login;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.TextAlignment;
-import model.ScheduleDB;
 import model.TContents;
 import model.Table;
 
@@ -38,6 +39,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private FontAwesomeIconView back_arrow;
+
+    @FXML
+    private FontAwesomeIconView back_arrow1;
 
     @FXML
     private FontAwesomeIconView close;
@@ -61,16 +65,37 @@ public class HomeController implements Initializable {
     private AnchorPane home;
 
     @FXML
+    private MFXButton loadtable_btn;
+
+    @FXML
+    private MFXTableView<?> roomtable;
+
+    @FXML
+    private AnchorPane roomtable_pane;
+
+    @FXML
     private MFXTableView<?> scheduledtable;
 
     @FXML
     private AnchorPane scheduledtable_pane;
 
     @FXML
+    private MFXComboBox<String> selectTable_cbox;
+
+    @FXML
     private AnchorPane settings_tab;
 
     @FXML
+    private GridPane structure_gridPane;
+
+    @FXML
+    private AnchorPane structure_tab;
+
+    @FXML
     private AnchorPane table_tab;
+
+    @FXML
+    private HBox tableoption_hbox;
 
     @FXML
     private AnchorPane timetable;
@@ -83,14 +108,25 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label welcome_message;
-    
-    @FXML
-    private Label label;
 	
+    
+    
+    
+    
+    
+    //combo_box items
+    ObservableList<String> table_list = FXCollections.observableArrayList("Course Table","Scheduled Table","Room Table");
+        
+    
+    
+    
+    
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	//initialize
     	welcome_message.setText("Welcome, "+Login.Username());
 		setupTableView();	
+		selectTable_cbox.setItems(table_list);
 	}
     
   
@@ -159,12 +195,11 @@ public class HomeController implements Initializable {
     void timetable_tab_onclick(MouseEvent event) {
 		//set the current tab name
 		currenttab_label.setText("TimeTables");
-		
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
 		timetable_grid.setVisible(true);
-		ScheduleDB.displaySchedule(timetable_grid);
+		tableoption_hbox.setVisible(false);
 		
 	}
 	
@@ -172,12 +207,27 @@ public class HomeController implements Initializable {
     void tabletab_onclick(MouseEvent event) {
 		//set the current tab name
 		currenttab_label.setText("Tables");
-		
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
 		timetable_grid.setVisible(false);
+		tableoption_hbox.setVisible(true);
 		coursetable_pane.setVisible(true);
+		scheduledtable_pane.setVisible(false);
+    }
+	
+	@FXML
+    void structuretab_onclick(MouseEvent event) {
+		//set the current tab name
+		currenttab_label.setText("Structure");
+		//switch panes(stackpane)
+		home.setVisible(false);
+		timetable.setVisible(true);
+		timetable_grid.setVisible(false);
+		tableoption_hbox.setVisible(false);
+		coursetable_pane.setVisible(false);
+		scheduledtable_pane.setVisible(false);
+		structure_gridPane.setVisible(true);
     }
 	
 	

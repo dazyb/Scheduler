@@ -85,6 +85,8 @@ public class ScheduleDB {
 				courseCode = rs.getString("CourseCode");
 				System.out.println(courseCode);
 				timeAllocated = rs.getString("TimeAllocated");
+				
+				
 //				System.out.println(time.get(timeAllocated.substring(4, 6)));
 //				if(timeAllocated.substring(0, 3)=="MON") {
 //					pane.add(createNode(rs.getString("CourseCode")), 1, time.get(timeAllocated.substring(4, 6)));

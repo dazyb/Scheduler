@@ -85,8 +85,8 @@
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <MFXButton buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" prefHeight="26.0" prefWidth="92.0" rippleColor="#c7b25a" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
-            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue;" text="Add/Update" textFill="WHITE" />
+            <MFXButton fx:id="cancel_btn" buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" onAction="#cancel" prefHeight="26.0" prefWidth="92.0" rippleColor="#c7b25a" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
+            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" onAction="#addNewCourse" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue;" text="Add" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

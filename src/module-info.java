@@ -6,6 +6,7 @@ module Scheduler {
 	requires java.sql;
 	requires de.jensd.fx.glyphs.fontawesome;
 	requires javafx.base;
+	requires commons.configuration;
 	
 	opens application to javafx.graphics, javafx.fxml;
 	opens controller to javafx.graphics, javafx.fxml;
