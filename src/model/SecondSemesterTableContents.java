@@ -2,10 +2,10 @@ package model;
 
 import java.util.Objects;
 
-public class TContents {
+public class SecondSemesterTableContents {
 	private int ID,numberOfStudents,level;
 	private String CourseName,Department,CourseCode,LecturerName,LecturerInitials,Programme,Groupings;
-	public TContents(int iD, int numberOfStudents, int level, String courseName, String department, String courseCode,
+	public SecondSemesterTableContents(int iD, int numberOfStudents, int level, String courseName, String department, String courseCode,
 			String lecturerName, String lecturerInitials, String programme, String groupings) {
 		super();
 		ID = iD;
@@ -54,7 +54,7 @@ public class TContents {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		TContents list_Controller = (TContents) o;
+		SecondSemesterTableContents list_Controller = (SecondSemesterTableContents) o;
 		return getCourseName().equals(list_Controller.getCourseName());
 	}
 

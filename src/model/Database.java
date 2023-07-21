@@ -95,10 +95,58 @@ public class Database {
 		}
 	}
 	
+	public static String getdept(String courseCode, int ID) {
+		conn =  connectdb();
+		String dept = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement("Select Department from"
+					+ " SecondSemester where CourseCode='"+courseCode+"' and ID="+ID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				dept=rs.getString("Department");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+		return dept;
+	}
+	public static int getstudentLevel(String courseCode) {
+		conn =  connectdb();
+		int level = 0;
+		try {
+			PreparedStatement ps = conn.prepareStatement("Select StudentLevel from"
+					+ " SecondSemester where CourseCode='"+courseCode+"'");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				level=rs.getInt("StudentLevel");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+		return level;
+	}
+	
+	public static String getlecturerInitials(String courseCode, int ID) {
+		conn =  connectdb();
+		String initials = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement("Select LecturerInitials from"
+					+ " SecondSemester where CourseCode='"+courseCode+"' and ID="+ID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				initials=rs.getString("LecturerInitials");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+		return initials;
+	}
 	
 	
 //	public static void main(String[] args) {
-//		connectdb();
 //	}
 	
 }

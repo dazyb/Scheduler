@@ -64,9 +64,12 @@ public class TimetableGA {
 //                    timetable.getTimeslot(bestClass.getTimeslotId()).getTimeslot());
 //            System.out.println("-----");
         	
-        	ScheduleDB.new_schedule(timetable.getModule(bestClass.getModuleId()).getModuleName(), timetable.getModule(bestClass.getModuleId()).getModuleCode(), 
+        	ScheduleDB.new_schedule(timetable.getModule(bestClass.getModuleId()).getModuleName(), timetable.getModule(bestClass.getModuleId()).getModuleCode(),
         			timetable.getProfessor(bestClass.getProfessorId()).getProfessorName(), timetable.getRoom(bestClass.getRoomId()).getRoomNumber(), 
         			timetable.getTimeslot(bestClass.getTimeslotId()).getTimeslot()
+        			,Database.getdept(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId()),
+        			Database.getstudentLevel(timetable.getModule(bestClass.getModuleId()).getModuleCode()),
+        			Database.getlecturerInitials(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId())
         			);
             classIndex++;
         }
@@ -142,5 +145,9 @@ public class TimetableGA {
 		Database.students(timetable);
 		return timetable;
 	}
+	
+//	public static void main(String[] args) {
+//		schedule();
+//	}
 
 }
