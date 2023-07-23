@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -37,7 +38,7 @@ public class ScheduleDB {
 					+ "values(?,?,?,?,?,?,?,?)");
 			ps.setString(1, CourseName);
 			ps.setString(2, CourseCode);
-			ps.setString(3, LecturerName);
+			ps.setString(3, LecturerName); 
 			ps.setString(4, RoomName);
 			ps.setString(5, TimeAllocated);
 			ps.setString(6, Department);
@@ -52,9 +53,9 @@ public class ScheduleDB {
 	
 
 	
-	public static void displaySchedule(GridPane pane) {
+	public static void displaySchedule(GridPane pane, String dept, int level) {
 		conn =connectdb();
-		String query = "select * from Schedule where CourseName!='NULL' and Department='Mathematics' and StudentLevel=300";
+		String query = "select * from Schedule where Department='"+dept+"' and StudentLevel="+level;
 		try {
 			PreparedStatement ps =  conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
@@ -75,11 +76,12 @@ public class ScheduleDB {
 	}
 	
 //	public static void main(String[] args) {
-//		displaySchedule();
+//		
 //	}
 
 	
 	//random methods
+	//create a label as a child in the grid pane
 	static Label createNode(String courseCode, String lecturerInitials, String roomName) {
 		Label label = new Label();
 		label.setPrefSize(86, 76);
@@ -88,7 +90,7 @@ public class ScheduleDB {
 		label.setText(courseCode+"\n   "+lecturerInitials+"\n"+roomName);
 		return label;
 	}
-	
+	//display scheduled timetable from database to grid pane
 	static void display_gridPane(String[] position, String courseCode, String lecturerInitials, String roomName, GridPane pane) {
 		//position =  [rowIndex,columnIndex]
 		String rowIndex = position[0];

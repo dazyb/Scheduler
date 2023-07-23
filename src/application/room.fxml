@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="main_vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="370.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RoomController">
+<VBox fx:id="main_vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="370.0" style="-fx-background-color: white; -fx-border-color: blue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RoomController">
    <children>
       <Label alignment="CENTER" prefHeight="46.0" prefWidth="416.0" text="Room">
          <font>
@@ -38,18 +38,18 @@
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </MFXTextField>
-      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" promptText="PreView">
+      <TextArea fx:id="preView_textarea" editable="false" onMouseClicked="#getPreView" prefHeight="200.0" prefWidth="200.0" promptText="PreView">
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </TextArea>
       <AnchorPane prefHeight="47.0" prefWidth="370.0">
          <children>
-            <MFXButton buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" prefHeight="26.0" prefWidth="92.0" rippleColor="#c7b25a" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
-            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" onAction="#addNewRoom" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue;" text="Add" textFill="WHITE" />
+            <MFXButton fx:id="cancel_btn" buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" onAction="#cancel" prefHeight="26.0" prefWidth="92.0" rippleColor="#f45e5e" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
+            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" onAction="#addNewRoom" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue; -fx-text-fill: black;" text="Add" textFill="WHITE" />
          </children>
          <VBox.margin>
             <Insets top="30.0" />

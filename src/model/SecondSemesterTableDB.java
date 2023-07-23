@@ -1,15 +1,18 @@
 package model;
 
 
+
 import java.sql.Connection;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
 
 import javax.swing.JOptionPane;
 
-public class Database {
+public class SecondSemesterTableDB {
 	static Connection conn = null;
 	public static Connection connectdb() {
 		try {
@@ -145,8 +148,63 @@ public class Database {
 		return initials;
 	}
 	
+	public static ArrayList<String> getDepartment() {
+		conn = connectdb();
+		ArrayList<String> dept = new ArrayList<String>();
+		String query = "select distinct Department from SecondSemester";
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				dept.add(rs.getString("Department"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dept;
+	}
+	
+	public static void addNewCourse(String Department, String CourseName, String LecturerName, String LecturerInitials, int Level, String CourseCode, int noStudents, String Programme, String Groupings){
+		conn=connectdb();
+		try 
+		{
+			PreparedStatement prest=conn.prepareStatement("insert into SecondSemester(Department,CourseName, LecturerName,LecturerInitials,StudentLevel,CourseCode,NumberOfStudents,Programme,Groupings) values(?,?,?,?,?,?,?,?,?)");
+			prest.setString(1, Department);
+			prest.setString(2, CourseName);
+			prest.setString(3, LecturerName);
+			prest.setString(4, LecturerInitials);
+			prest.setInt(5, Level);
+			prest.setString(6, CourseCode);
+			prest.setInt(7, noStudents);
+			prest.setString(8, Programme);
+			prest.setString(9, Groupings);
+			prest.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Added Successfully");
+		}
+		catch(Exception e) 
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public static void updateCourse(String code, String cname, int noStudents,int ID, String lin, String lname, String groupings, String programme, String department, int level) {
+		conn = connectdb(); 
+		try {
+			PreparedStatement ps = conn.prepareStatement("update SecondSemester set CourseName='"+cname+"', NumberOfStudents='"+noStudents+"' , CourseCode='"+code+"', LecturerInitials='"+lin+"', LecturerName='"+lname+"',"
+					+ " Groupings='"+groupings+"', Programme='"+programme+"', Department='"+department+"', StudentLevel='"+level+"' where ID="+ID+"");
+			ps.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Row Updated");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			System.err.println(e.getMessage());
+		}
+	}
 	
 //	public static void main(String[] args) {
+//		System.out.println(getDepartment());
 //	}
 	
 }

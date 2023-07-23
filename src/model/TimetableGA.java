@@ -67,9 +67,9 @@ public class TimetableGA {
         	ScheduleDB.new_schedule(timetable.getModule(bestClass.getModuleId()).getModuleName(), timetable.getModule(bestClass.getModuleId()).getModuleCode(),
         			timetable.getProfessor(bestClass.getProfessorId()).getProfessorName(), timetable.getRoom(bestClass.getRoomId()).getRoomNumber(), 
         			timetable.getTimeslot(bestClass.getTimeslotId()).getTimeslot()
-        			,Database.getdept(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId()),
-        			Database.getstudentLevel(timetable.getModule(bestClass.getModuleId()).getModuleCode()),
-        			Database.getlecturerInitials(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId())
+        			,SecondSemesterTableDB.getdept(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId()),
+        			SecondSemesterTableDB.getstudentLevel(timetable.getModule(bestClass.getModuleId()).getModuleCode()),
+        			SecondSemesterTableDB.getlecturerInitials(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId())
         			);
             classIndex++;
         }
@@ -95,7 +95,7 @@ public class TimetableGA {
 //		timetable.addRoom(2, "B1", 30);
 //		timetable.addRoom(4, "D1", 20);
 //		timetable.addRoom(5, "F1", 25);
-		Database.rooms(timetable);
+		SecondSemesterTableDB.rooms(timetable);
 
 		// Set up timeslots
 //		timetable.addTimeslot(1, "Mon 9:00 - 11:00");
@@ -113,14 +113,14 @@ public class TimetableGA {
 //		timetable.addTimeslot(13, "Fri 9:00 - 11:00");
 //		timetable.addTimeslot(14, "Fri 11:00 - 13:00");
 //		timetable.addTimeslot(15, "Fri 13:00 - 15:00");
-		Database.timeslot(timetable);
+		SecondSemesterTableDB.timeslot(timetable);
 
 		//Set up professors
 //		timetable.addProfessor(1, "Dr P Smith");
 //		timetable.addProfessor(2, "Mrs E Mitchell");
 //		timetable.addProfessor(3, "Dr R Williams");
 //		timetable.addProfessor(4, "Mr A Thompson");
-		Database.lecturer(timetable);
+		SecondSemesterTableDB.lecturer(timetable);
 
 		// Set up modules and define the professors that teach them
 //		timetable.addModule(1, "cs1", "Computer Science", new int[] { 1, 2 });
@@ -129,7 +129,7 @@ public class TimetableGA {
 //		timetable.addModule(4, "ph1", "Physics", new int[] { 3, 4 });
 //		timetable.addModule(5, "hi1", "History", new int[] { 4 });
 //		timetable.addModule(6, "dr1", "Drama", new int[] { 1, 4 });
-		Database.course(timetable);
+		SecondSemesterTableDB.course(timetable);
 
 		// Set up student groups and the modules they take.
 //		timetable.addGroup(1, 10, new int[] { 1, 3, 4 });
@@ -142,7 +142,7 @@ public class TimetableGA {
 //		timetable.addGroup(8, 18, new int[] { 2, 6 });
 //		timetable.addGroup(9, 24, new int[] { 1, 6 });
 //		timetable.addGroup(10, 25, new int[] { 3, 4 });
-		Database.students(timetable);
+		SecondSemesterTableDB.students(timetable);
 		return timetable;
 	}
 	

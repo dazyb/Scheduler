@@ -4,6 +4,7 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import model.SecondSemesterTableDB;
 import model.NewCourse;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -53,11 +54,15 @@ public class NewCourseController implements Initializable{
     private MFXComboBox<String> semester_cbox;
     
     
+    
+    
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> sem_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
+//    ObservableList<String> dept_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
+    
     
     @FXML
-    void cancel(MouseEvent event) {
+    void cancel(ActionEvent event) {
    	 final Node source = (Node) event.getSource();
    	 final Stage stage = (Stage) source.getScene().getWindow();
    	 stage.close();
@@ -65,7 +70,7 @@ public class NewCourseController implements Initializable{
     
     @FXML
     void addNewCourse(ActionEvent event) {
-    	addNew();
+    	
     }
     
 	
@@ -77,13 +82,7 @@ public class NewCourseController implements Initializable{
 		
 	}
 	
-	void addNew() {
 
-	}
-	
-	void update() {
-		
-	}
 	
 	
 

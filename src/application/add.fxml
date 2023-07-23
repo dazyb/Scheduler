@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="main_vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="370.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCourseController">
+<VBox fx:id="main_vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="370.0" style="-fx-background-color: white; -fx-border-color: blue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCourseController">
    <children>
       <Label alignment="CENTER" prefHeight="46.0" prefWidth="416.0" text="Course Details">
          <font>
@@ -47,6 +47,11 @@
             </MFXComboBox>
          </children>
       </HBox>
+      <MFXComboBox fx:id="department_cbox" floatMode="BORDER" floatingText="Department" prefHeight="40.0" prefWidth="361.0">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </MFXComboBox>
       <MFXTextField fx:id="lecturername_field" floatMode="BORDER" floatingText="Lecturer's Name" prefHeight="38.0" prefWidth="365.0">
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="10.0" />
@@ -82,11 +87,11 @@
       </MFXComboBox>
       <AnchorPane prefHeight="47.0" prefWidth="370.0">
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets />
          </VBox.margin>
          <children>
-            <MFXButton fx:id="cancel_btn" buttonType="RAISED" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" onAction="#cancel" prefHeight="26.0" prefWidth="92.0" rippleColor="#c7b25a" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
-            <MFXButton fx:id="add_update_button" buttonType="RAISED" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" onAction="#addNewCourse" prefHeight="26.0" prefWidth="92.0" rippleColor="BLUE" style="-fx-border-color: blue;" text="Add" textFill="WHITE" />
+            <MFXButton fx:id="cancel_btn" depthLevel="LEVEL5" layoutX="301.0" layoutY="11.0" onAction="#cancel" prefHeight="27.0" prefWidth="92.0" rippleColor="#f29191" style="-fx-background-color: red; -fx-text-fill: white;" text="Cancel" textFill="WHITE" AnchorPane.rightAnchor="15.0" />
+            <MFXButton fx:id="add_update_button" depthLevel="LEVEL5" layoutX="156.0" layoutY="11.0" onAction="#addNewCourse" prefHeight="26.0" prefWidth="92.0" rippleColor="#00c8ff" style="-fx-border-color: blue;" text="Add" />
          </children>
       </AnchorPane>
    </children>
