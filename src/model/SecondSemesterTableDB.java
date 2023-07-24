@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class SecondSemesterTableDB {
 	static Connection conn = null;
 	public static Connection connectdb() {
@@ -201,6 +204,22 @@ public class SecondSemesterTableDB {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.err.println(e.getMessage());
 		}
+	}
+	
+	public static ObservableList<SecondSemesterTableContents> getDatabaseTable(){
+		conn=connectdb();
+		ObservableList<SecondSemesterTableContents> list= FXCollections.observableArrayList();
+		try {
+			PreparedStatement ps=conn.prepareStatement("Select * from SecondSemester");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				list.add(new SecondSemesterTableContents(rs.getInt("ID"), rs.getInt("NumberOfStudents"), rs.getInt("StudentLevel"), rs.getString("CourseName"), rs.getString("Department"),
+						rs.getString("CourseCode"), rs.getString("LecturerName"), rs.getString("LecturerInitials"), rs.getString("Programme"), rs.getString("Groupings")));
+			}	
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Table couldn't Update\n"+e);
+		}
+		return list;
 	}
 	
 //	public static void main(String[] args) {

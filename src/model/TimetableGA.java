@@ -64,7 +64,7 @@ public class TimetableGA {
 //                    timetable.getTimeslot(bestClass.getTimeslotId()).getTimeslot());
 //            System.out.println("-----");
         	
-        	ScheduleDB.new_schedule(timetable.getModule(bestClass.getModuleId()).getModuleName(), timetable.getModule(bestClass.getModuleId()).getModuleCode(),
+        	ScheduleTableDB.new_schedule(timetable.getModule(bestClass.getModuleId()).getModuleName(), timetable.getModule(bestClass.getModuleId()).getModuleCode(),
         			timetable.getProfessor(bestClass.getProfessorId()).getProfessorName(), timetable.getRoom(bestClass.getRoomId()).getRoomNumber(), 
         			timetable.getTimeslot(bestClass.getTimeslotId()).getTimeslot()
         			,SecondSemesterTableDB.getdept(timetable.getModule(bestClass.getModuleId()).getModuleCode(), timetable.getModule(bestClass.getModuleId()).getModuleId()),

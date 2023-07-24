@@ -10,12 +10,14 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
-public class ScheduleDB {
+public class ScheduleTableDB {
 	static Connection conn = null;
 	public static Connection connectdb() {
 		try {
@@ -29,6 +31,22 @@ public class ScheduleDB {
 			
 			return null;
 		}
+	}
+	
+	public static ObservableList<ScheduleTableContents> getScheduleTable(){
+		conn=connectdb();
+		ObservableList<ScheduleTableContents> list= FXCollections.observableArrayList();
+		try {
+			PreparedStatement ps=conn.prepareStatement("Select * from Schedule");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				list.add(new ScheduleTableContents(rs.getInt("ID"), rs.getInt("StudentLevel"), rs.getString("CourseCode"), rs.getString("Department"),
+						rs.getString("courseName"), rs.getString("LecturerName"), rs.getString("LecturerInitials"), rs.getString("TimeAllocated"), rs.getString("RoomName")));
+			}	
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Table couldn't Update\n"+e);
+		}
+		return list;
 	}
 	
 	public static void new_schedule(String CourseName, String CourseCode, String LecturerName, String RoomName, String TimeAllocated, String Department, int level, String LecturerInitials) {

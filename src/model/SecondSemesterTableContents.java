@@ -50,16 +50,16 @@ public class SecondSemesterTableContents {
 		return Groupings;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		SecondSemesterTableContents list_Controller = (SecondSemesterTableContents) o;
-		return getCourseName().equals(list_Controller.getCourseName());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(getCourseName());
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) return true;
+//		if (o == null || getClass() != o.getClass()) return false;
+//		SecondSemesterTableContents list_Controller = (SecondSemesterTableContents) o;
+//		return getCourseName().equals(list_Controller.getCourseName());
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(getCourseName());
+//	}
 }

@@ -1,8 +1,9 @@
 package controller;
 
 import java.net.URL;
-import java.util.Comparator;
-import java.util.List;
+
+
+
 import java.util.ResourceBundle;
 
 import application.Login;
@@ -12,39 +13,28 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
-import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.print.PageLayout;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
 import model.SecondSemesterTableDB;
-import model.RoomTable;
 import model.RoomTableContents;
-import model.ScheduleDB;
-import model.ScheduleTable;
+import model.RoomTableDB;
+import model.ScheduleTableDB;
 import model.ScheduleTableContents;
 import model.SecondSemesterTableContents;
-import model.Temp;
-import model.SecondSemesterTable;
+
+
 
 
 public class HomeController implements Initializable {
@@ -56,7 +46,7 @@ public class HomeController implements Initializable {
     private FontAwesomeIconView close;
 
     @FXML
-    private MFXTableView<SecondSemesterTableContents> coursetable;
+    private TableView<SecondSemesterTableContents> coursetable;
 
     @FXML
     private AnchorPane coursetable_pane;
@@ -80,13 +70,13 @@ public class HomeController implements Initializable {
     private MFXButton loadtable_btn;
 
     @FXML
-    private MFXTableView<RoomTableContents> roomtable;
+    private TableView<RoomTableContents> roomtable;
 
     @FXML
     private AnchorPane roomtable_pane;
 
     @FXML
-    private MFXTableView<ScheduleTableContents> scheduledtable;
+    private TableView<ScheduleTableContents> scheduledtable;
 
     @FXML
     private AnchorPane scheduledtable_pane;
@@ -147,11 +137,77 @@ public class HomeController implements Initializable {
     
     @FXML
     private MFXScrollPane database_pane;
-	
     
+    @FXML
+    private TableColumn<RoomTableContents, Integer> roomTable_columnID;
     
+    @FXML
+    private TableColumn<RoomTableContents, String> roomTable_columnbname;
     
- 
+    @FXML
+    private TableColumn<RoomTableContents, String> roomTable_columnrname;
+    
+    @FXML
+    private TableColumn<RoomTableContents, Integer> roomTable_columncapacity;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnID;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseName;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseCode;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlname;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlinitials;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columndept;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnnoStudents;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnstudentLevel;
+
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnprogramme;
+    
+    @FXML
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columngroup;
+
+    @FXML
+    private TableColumn<ScheduleTableContents, Integer> scheduledtable_columnID;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseName;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseCode;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlname;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlinitials;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columnrname;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, Integer> scheduledtable_columntAllocated;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columndept;
+    
+    @FXML
+    private TableColumn<ScheduleTableContents, Integer> scheduledtable_columnlevel;
+    
+
     //combo_box items
     ObservableList<String> table_list = FXCollections.observableArrayList("Course Table","Scheduled Table","Room Table");
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
@@ -165,14 +221,12 @@ public class HomeController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	//initialize
     		welcome_message.setText("Welcome, "+Login.Username());
-    		//tableviews
-			
-			
-			
 			//combo-box
 			selectTable_cbox.setItems(table_list);
 			sel_dept_cbox.setItems(dept_list);
 			sel_studentLevel_cbox.setItems(level_list);
+			//
+			
 		
 //			timetable_grid.add(add_btn, 1, 1, 2, 1);
 //			timetable_grid.add(currenttab_label, 1, 2, 3, 1);
@@ -271,7 +325,6 @@ public class HomeController implements Initializable {
 		String currentItem = selectTable_cbox.getSelectedItem();
 		switch(currentItem) {
 			case "Course Table":
-				coursetable.getTableColumns().clear();
 				setupTableView_courseTable();	
 				coursetable_pane.setVisible(true);
 				scheduledtable_pane.setVisible(false);
@@ -279,7 +332,8 @@ public class HomeController implements Initializable {
 				current_table_name.setText("Course Table");
 				break;
 			case "Scheduled Table":
-				scheduledtable.getTableColumns().clear();
+				coursetable.getItems().clear();
+				roomtable.getItems().clear();
 				setupTableView_scheduleTable();
 				coursetable_pane.setVisible(false);
 				scheduledtable_pane.setVisible(true);
@@ -287,7 +341,8 @@ public class HomeController implements Initializable {
 				current_table_name.setText("Scheduled Table");
 				break;
 			case "Room Table":
-				roomtable.getTableColumns().clear();
+				coursetable.getItems().clear();
+				scheduledtable.getItems().clear();
 				setupTableView_roomTable();
 				coursetable_pane.setVisible(false);
 				scheduledtable_pane.setVisible(false);
@@ -338,7 +393,7 @@ public class HomeController implements Initializable {
 	 
 	@FXML
     void loadtt(ActionEvent event) {
-		ScheduleDB.displaySchedule(timetable_grid,sel_dept_cbox.getSelectedItem(),sel_studentLevel_cbox.getSelectedItem());
+		ScheduleTableDB.displaySchedule(timetable_grid,sel_dept_cbox.getSelectedItem(),sel_studentLevel_cbox.getSelectedItem());
     }
 	
 	@FXML
@@ -431,106 +486,47 @@ public class HomeController implements Initializable {
     
     
   //table(coursetable)
-  	@SuppressWarnings("unchecked")
   	private void setupTableView_roomTable() {
-  		MFXTableColumn<RoomTableContents> idColumn = new MFXTableColumn<>("ID", true, Comparator.comparing(RoomTableContents::getID));
-  		MFXTableColumn<RoomTableContents> capacityColumn = new MFXTableColumn<>("Capacity", true, Comparator.comparing(RoomTableContents::getSize));
-  		MFXTableColumn<RoomTableContents> bnameColumn = new MFXTableColumn<>("Building Name", true, Comparator.comparing(RoomTableContents::getBuilding_Name));
-  		MFXTableColumn<RoomTableContents> rnameColumn = new MFXTableColumn<>("Room Name", true, Comparator.comparing(RoomTableContents::getRoom_Name));
+  		roomTable_columnID.setCellValueFactory(new PropertyValueFactory<RoomTableContents,Integer>("ID"));
+  		roomTable_columnbname.setCellValueFactory(new PropertyValueFactory<RoomTableContents,String>("Building_Name"));
+  		roomTable_columnrname.setCellValueFactory(new PropertyValueFactory<RoomTableContents,String>("Room_Name"));
+  		roomTable_columncapacity.setCellValueFactory(new PropertyValueFactory<RoomTableContents,Integer>("Size"));
 
-  		
-
-  		idColumn.setRowCellFactory(list_Controller_roomTable -> new MFXTableRowCell<>(RoomTableContents::getID));
-  		capacityColumn.setRowCellFactory(list_Controller_roomTable -> new MFXTableRowCell<>(RoomTableContents::getSize));
-  		bnameColumn.setRowCellFactory(list_Controller_roomTable -> new MFXTableRowCell<>(RoomTableContents::getBuilding_Name));
-  		rnameColumn.setRowCellFactory(list_Controller_roomTable -> new MFXTableRowCell<>(RoomTableContents::getRoom_Name));
-  		
-  		
-
-  		roomtable.getTableColumns().addAll(idColumn, bnameColumn, rnameColumn, capacityColumn);
-  		roomtable.getFilters().addAll(
-  				new StringFilter<>("Room Name", RoomTableContents::getRoom_Name),
-  				new StringFilter<>("Building Name", RoomTableContents::getBuilding_Name)
-  		);
-  		
-  		list_Controller_roomTable=RoomTable.getDatabaseTable();
+  		list_Controller_roomTable=RoomTableDB.getDatabaseTable();
   		roomtable.setItems(list_Controller_roomTable);
   	}
     
 	//table(coursetable)
-	@SuppressWarnings("unchecked")
 	private void setupTableView_courseTable() {
-		MFXTableColumn<SecondSemesterTableContents> idColumn = new MFXTableColumn<>("ID", true, Comparator.comparing(SecondSemesterTableContents::getID));
-		MFXTableColumn<SecondSemesterTableContents> coursenameColumn = new MFXTableColumn<>("Course Name", true, Comparator.comparing(SecondSemesterTableContents::getCourseName));
-		MFXTableColumn<SecondSemesterTableContents> ccColumn = new MFXTableColumn<>("Course Code", true, Comparator.comparing(SecondSemesterTableContents::getCourseCode));
-		MFXTableColumn<SecondSemesterTableContents> deptColumn = new MFXTableColumn<>("Department", true, Comparator.comparing(SecondSemesterTableContents::getDepartment));
-		MFXTableColumn<SecondSemesterTableContents> lnameColumn = new MFXTableColumn<>("Lecturer Name", true, Comparator.comparing(SecondSemesterTableContents::getLecturerName));
-		MFXTableColumn<SecondSemesterTableContents> liColumn = new MFXTableColumn<>("Lecturer Initials", true, Comparator.comparing(SecondSemesterTableContents::getLecturerInitials));
-		MFXTableColumn<SecondSemesterTableContents> noColumn = new MFXTableColumn<>("Number Of Students", true, Comparator.comparing(SecondSemesterTableContents::getNumberOfStudents));
-		MFXTableColumn<SecondSemesterTableContents> progColumn = new MFXTableColumn<>("Programme", true, Comparator.comparing(SecondSemesterTableContents::getProgramme));
-		MFXTableColumn<SecondSemesterTableContents> groupColumn = new MFXTableColumn<>("Groupings", true, Comparator.comparing(SecondSemesterTableContents::getGroupings));
+		courseTable_columnID.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,Integer>("ID"));
+		courseTable_columncourseName.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("CourseName"));
+		courseTable_columncourseCode.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("CourseCode"));
+		courseTable_columnlname.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("LecturerName"));
+		courseTable_columnlinitials.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("LecturerInitials"));
+		courseTable_columndept.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("Department"));
+		courseTable_columnnoStudents.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,Integer>("numberOfStudents"));
+		courseTable_columnprogramme.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("Programme"));
+		courseTable_columngroup.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("Groupings"));
+		courseTable_columnstudentLevel.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,Integer>("level"));
 		
-
-		idColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getID));
-		coursenameColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getCourseName));
-		ccColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getCourseCode));
-		deptColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getDepartment));
-		lnameColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getLecturerName));
-		liColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getLecturerInitials));
-		noColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getNumberOfStudents));
-		progColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getProgramme));
-		groupColumn.setRowCellFactory(list_Controller -> new MFXTableRowCell<>(SecondSemesterTableContents::getGroupings));
-		
-		
-
-		coursetable.getTableColumns().addAll(idColumn, coursenameColumn, ccColumn, deptColumn, lnameColumn, liColumn, noColumn, progColumn, groupColumn);
-		coursetable.getFilters().addAll(
-				new StringFilter<>("Course Name", SecondSemesterTableContents::getCourseName),
-				new StringFilter<>("Department", SecondSemesterTableContents::getDepartment),
-				new StringFilter<>("Course Code", SecondSemesterTableContents::getCourseCode),
-				new StringFilter<>("Lecturer Name", SecondSemesterTableContents::getLecturerName)
-		);
-		
-		list_Controller=SecondSemesterTable.getDatabaseTable();
+		list_Controller=SecondSemesterTableDB.getDatabaseTable();
 		coursetable.setItems(list_Controller);
 	}
 	
 	
 	//table(Schedule)
-	
-	@SuppressWarnings("unchecked")
 	private void setupTableView_scheduleTable() {
-		MFXTableColumn<ScheduleTableContents> idColumn = new MFXTableColumn<>("ID", true, Comparator.comparing(ScheduleTableContents::getID));
-		MFXTableColumn<ScheduleTableContents> coursenameColumn = new MFXTableColumn<>("Course Name", true, Comparator.comparing(ScheduleTableContents::getCourseName));
-		MFXTableColumn<ScheduleTableContents> ccColumn = new MFXTableColumn<>("Course Code", true, Comparator.comparing(ScheduleTableContents::getCourseCode));
-		MFXTableColumn<ScheduleTableContents> deptColumn = new MFXTableColumn<>("Department", true, Comparator.comparing(ScheduleTableContents::getDept));
-		MFXTableColumn<ScheduleTableContents> lnameColumn = new MFXTableColumn<>("Lecturer Name", true, Comparator.comparing(ScheduleTableContents::getLecturerName));
-		MFXTableColumn<ScheduleTableContents> liColumn = new MFXTableColumn<>("Lecturer Initials", true, Comparator.comparing(ScheduleTableContents::getLecturerInitials));
-		MFXTableColumn<ScheduleTableContents> timeColumn = new MFXTableColumn<>("Time Allocated", true, Comparator.comparing(ScheduleTableContents::getTimeAllocated));
-		MFXTableColumn<ScheduleTableContents> roomNameColumn = new MFXTableColumn<>("Programme", true, Comparator.comparing(ScheduleTableContents::getRoomName));
+		scheduledtable_columnID.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,Integer>("ID"));
+		scheduledtable_columncourseName.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("courseName"));
+		scheduledtable_columncourseCode.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("courseCode"));
+		scheduledtable_columnlname.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("lecturerName"));
+		scheduledtable_columnlinitials.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("lecturerInitials"));
+		scheduledtable_columnrname.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("roomName"));
+		scheduledtable_columntAllocated.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,Integer>("timeAllocated"));
+		scheduledtable_columndept.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("dept"));
+		scheduledtable_columnlevel.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,Integer>("studentLevel"));
 		
-
-		idColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getID));
-		coursenameColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getCourseName));
-		ccColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getCourseCode));
-		deptColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getDept));
-		lnameColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getLecturerName));
-		liColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getLecturerInitials));
-		timeColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getTimeAllocated));
-		roomNameColumn.setRowCellFactory(list_Controller_scheduleTable -> new MFXTableRowCell<>(ScheduleTableContents::getRoomName));
-		
-		
-
-		scheduledtable.getTableColumns().addAll(idColumn, coursenameColumn, ccColumn, deptColumn, lnameColumn, liColumn, timeColumn, roomNameColumn);
-		scheduledtable.getFilters().addAll(
-				new StringFilter<>("Course Name", ScheduleTableContents::getCourseName),
-				new StringFilter<>("Department", ScheduleTableContents::getDept),
-				new StringFilter<>("Course Code", ScheduleTableContents::getCourseCode),
-				new StringFilter<>("Lecturer Name", ScheduleTableContents::getLecturerName),
-				new StringFilter<>("Time Allocated", ScheduleTableContents::getTimeAllocated )
-		);
-		
-		list_Controller_scheduleTable=ScheduleTable.getScheduleTable();
+		list_Controller_scheduleTable=ScheduleTableDB.getScheduleTable();
 		scheduledtable.setItems(list_Controller_scheduleTable);
 	}
 

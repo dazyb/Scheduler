@@ -4,11 +4,12 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,7 +25,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="737.0" prefWidth="1259.0" styleClass="all" stylesheets="@Home.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <AnchorPane fx:id="home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@Home.css">
+      <AnchorPane fx:id="home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@Home.css" visible="false">
          <children>
             <Label fx:id="welcome_message" layoutX="130.0" layoutY="104.0" prefHeight="111.0" prefWidth="514.0" text="WELCOME USERNAME" AnchorPane.leftAnchor="130.0">
                <font>
@@ -112,18 +113,18 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="timetable" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="timetable" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
          <children>
             <HBox layoutX="137.0" layoutY="31.0" prefHeight="100.0" prefWidth="1296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                <children>
                   <AnchorPane prefHeight="100.0" prefWidth="1270.0" style="-fx-background-color: white;">
                      <children>
-                        <FontAwesomeIconView fill="BLUE" glyphName="HOME" layoutX="102.0" layoutY="54.0" size="65" styleClass="all" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="4.0" />
                         <Line endX="-100.00001525878906" endY="78.86668395996094" layoutX="301.0" layoutY="11.0" startX="-100.0" stroke="RED" strokeWidth="6.0" />
+                        <FontAwesomeIconView fill="BLUE" glyphName="HOME" layoutX="102.0" layoutY="54.0" size="65" styleClass="all" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="4.0" />
                         <FontAwesomeIconView fx:id="currenttab_icon" fill="BLUE" glyphName="CALENDAR" layoutX="227.0" layoutY="72.0" size="45" AnchorPane.leftAnchor="227.0" AnchorPane.topAnchor="24.0" />
                         <Label fx:id="currenttab_label" layoutX="283.0" layoutY="22.0" prefHeight="50.0" prefWidth="230.0" text="TimeTable" textFill="BLUE">
                            <font>
-                              <Font size="28.0" />
+                              <Font size="24.0" />
                            </font>
                         </Label>
                         <ImageView fitHeight="75.0" fitWidth="62.0" layoutX="1160.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
@@ -156,30 +157,66 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-                  <AnchorPane fx:id="coursetable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.2" prefWidth="1179.2" visible="false">
+                  <AnchorPane fx:id="coursetable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1197.0" visible="false">
                      <children>
-                        <MFXTableView fx:id="coursetable" layoutX="10.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="1128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </MFXTableView>
+                        <TableView fx:id="coursetable" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="courseTable_columnID" prefWidth="52.00000685453415" text="ID" />
+                              <TableColumn fx:id="courseTable_columncourseName" prefWidth="147.99999618530273" text="Course Name" />
+                              <TableColumn fx:id="courseTable_columncourseCode" prefWidth="98.39997863769531" text="Course Code" />
+                              <TableColumn fx:id="courseTable_columnlname" prefWidth="205.066650390625" text="Lecturer Name" />
+                              <TableColumn fx:id="courseTable_columnlinitials" prefWidth="123.46673583984375" text="Lecturer Initials" />
+                              <TableColumn fx:id="courseTable_columndept" prefWidth="176.7999267578125" text="Department" />
+                              <TableColumn fx:id="courseTable_columnnoStudents" prefWidth="108.800048828125" text="No. Students" />
+                              <TableColumn fx:id="courseTable_columnstudentLevel" prefWidth="97.60009765625" text="Student Level" />
+                              <TableColumn fx:id="courseTable_columnprogramme" prefWidth="105.86676025390625" text="Programme" />
+                              <TableColumn fx:id="courseTable_columngroup" prefWidth="79.2000732421875" text="Group" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="scheduledtable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.2" prefWidth="1179.2" visible="false">
+                  <AnchorPane fx:id="scheduledtable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1198.0" visible="false">
                      <children>
-                        <MFXTableView fx:id="scheduledtable" layoutX="10.0" layoutY="5.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="1092.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TableView fx:id="scheduledtable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="scheduledtable_columnID" prefWidth="49.599977850914" text="ID" />
+                            <TableColumn fx:id="scheduledtable_columncourseName" prefWidth="216.00003051757812" text="Course Name" />
+                              <TableColumn fx:id="scheduledtable_columncourseCode" prefWidth="75.0" text="Course Code" />
+                              <TableColumn fx:id="scheduledtable_columnlname" prefWidth="112.26666259765625" text="Lecturer Name" />
+                              <TableColumn fx:id="scheduledtable_columnlinitials" prefWidth="116.5333251953125" text="Lecturer Initials" />
+                              <TableColumn fx:id="scheduledtable_columnrname" prefWidth="75.0" text="Room Name" />
+                              <TableColumn fx:id="scheduledtable_columntAllocated" prefWidth="75.0" text="Time Allocated" />
+                              <TableColumn fx:id="scheduledtable_columndept" prefWidth="112.800048828125" text="Department" />
+                              <TableColumn fx:id="scheduledtable_columnlevel" prefWidth="94.39990234375" text="Student Level" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="roomtable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.2" prefWidth="1179.2" visible="false">
+                  <AnchorPane fx:id="roomtable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1199.0" visible="false">
                      <children>
-                        <MFXTableView fx:id="roomtable" layoutX="31.0" layoutY="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TableView fx:id="roomtable" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="roomTable_columnID" editable="false" prefWidth="94.39998090267181" resizable="false" text="ID" />
+                            <TableColumn fx:id="roomTable_columnbname" editable="false" prefWidth="684.7999420166016" resizable="false" text="Building Name" />
+                              <TableColumn fx:id="roomTable_columnrname" editable="false" prefWidth="277.0667724609375" resizable="false" text="Room Name" />
+                              <TableColumn fx:id="roomTable_columncapacity" prefWidth="138.1331787109375" resizable="false" text="Size" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
                      </children>
                   </AnchorPane>
                   <GridPane fx:id="timetable_grid" gridLinesVisible="true" prefHeight="463.0" prefWidth="1162.0" style="-fx-background-color: white;" visible="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -231,37 +268,37 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="2:30 PM" GridPane.columnIndex="9">
+                        <Label alignment="CENTER" prefHeight="93.0" prefWidth="86.0" text="02:30 PM&#10;03:30 PM" GridPane.columnIndex="9">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="1:30 PM" GridPane.columnIndex="8">
+                        <Label alignment="CENTER" prefHeight="77.0" prefWidth="86.0" text="01:30 PM&#10;02:30 PM" GridPane.columnIndex="8">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="12:30 PM" GridPane.columnIndex="7">
+                        <Label alignment="CENTER" prefHeight="79.0" prefWidth="86.0" text="12:30 PM&#10;01:30 PM" GridPane.columnIndex="7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="11:30 AM" GridPane.columnIndex="6">
+                        <Label alignment="CENTER" prefHeight="75.0" prefWidth="86.0" text="11:30 AM&#10;12:30 PM" GridPane.columnIndex="6">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="10:30 AM" GridPane.columnIndex="5">
+                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="86.0" text="10:30 AM&#10;11:30 AM" GridPane.columnIndex="5">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="9:30 AM" GridPane.columnIndex="4">
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="86.0" text="09:30 AM&#10;10:30 AM" GridPane.columnIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="73.0" prefWidth="86.0" text="8" GridPane.columnIndex="3">
+                        <Label alignment="CENTER" prefHeight="73.0" prefWidth="86.0" text="8:30 AM&#10;9:30 AM&#10;" GridPane.columnIndex="3">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -271,22 +308,17 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="5:30 PM" GridPane.columnIndex="12">
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="96.0" text="05:30 PM&#10;06:30 PM" GridPane.columnIndex="12">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="4:30 PM" GridPane.columnIndex="11">
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="95.0" text="04:30 PM&#10;05:30 PM" GridPane.columnIndex="11">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="3:30 PM" GridPane.columnIndex="10">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="6:30 PM" GridPane.columnIndex="13">
+                        <Label alignment="CENTER" prefHeight="85.0" prefWidth="86.0" text="03:30 PM&#10;04:30 PM" GridPane.columnIndex="10">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

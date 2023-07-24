@@ -53,12 +53,15 @@ public class NewCourseController implements Initializable{
     @FXML
     private MFXComboBox<String> semester_cbox;
     
+    @FXML
+    private MFXComboBox<String> department_cbox;
+    
     
     
     
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> sem_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
-//    ObservableList<String> dept_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
+    ObservableList<String> dept = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
     
     
     @FXML
@@ -79,6 +82,8 @@ public class NewCourseController implements Initializable{
 		//combo_boxes
 		level_cbox.setItems(level_list);
 		semester_cbox.setItems(sem_list);
+		department_cbox.setItems(dept);
+		
 		
 	}
 	
