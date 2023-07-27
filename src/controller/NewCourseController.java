@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import model.SecondSemesterTableDB;
+import model.Temp;
 import model.NewCourse;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -33,7 +34,7 @@ public class NewCourseController implements Initializable{
     private MFXTextField group_field;
 
     @FXML
-    private MFXTextField initails_field;
+    private MFXTextField linitial_field;
 
     @FXML
     private MFXTextField lecturername_field;
@@ -73,7 +74,7 @@ public class NewCourseController implements Initializable{
     
     @FXML
     void addNewCourse(ActionEvent event) {
-    	
+    	Temp.setProperty("ID", "0");
     }
     
 	
@@ -83,8 +84,10 @@ public class NewCourseController implements Initializable{
 		level_cbox.setItems(level_list);
 		semester_cbox.setItems(sem_list);
 		department_cbox.setItems(dept);
-		
-		
+		//preset ui components(update)
+		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
+		NewCourse.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 
+				lecturername_field, linitial_field, noStudent_field, level_cbox, programme_field, group_field, semester_cbox);	
 	}
 	
 

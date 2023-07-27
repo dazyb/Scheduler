@@ -16,6 +16,19 @@ public class Temp {
 		return config;
 	}
 	
+	public static void setProperty(String name, String value) {
+		config = configuration();
+		try {
+			config.setProperty(name, value);
+			config.save();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	
 	
 
 	
@@ -100,8 +113,7 @@ public class Temp {
 //	}
 //	
 //	public static void main(String[] args) throws ConfigurationException {
-//		setPropertyList ("dept_list", getDepartment());
-//		System.out.println(getPropertyValue("dept_list"));
+//		setProperty("ID","benjamin");
 //	}
 	
 }

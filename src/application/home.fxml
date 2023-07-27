@@ -187,8 +187,8 @@
                               <TableColumn fx:id="scheduledtable_columncourseCode" prefWidth="75.0" text="Course Code" />
                               <TableColumn fx:id="scheduledtable_columnlname" prefWidth="112.26666259765625" text="Lecturer Name" />
                               <TableColumn fx:id="scheduledtable_columnlinitials" prefWidth="116.5333251953125" text="Lecturer Initials" />
-                              <TableColumn fx:id="scheduledtable_columnrname" prefWidth="75.0" text="Room Name" />
-                              <TableColumn fx:id="scheduledtable_columntAllocated" prefWidth="75.0" text="Time Allocated" />
+                              <TableColumn fx:id="scheduledtable_columnrname" prefWidth="75.0" text="Venue" />
+                              <TableColumn fx:id="scheduledtable_columntAllocated" prefWidth="75.0" text="Time" />
                               <TableColumn fx:id="scheduledtable_columndept" prefWidth="112.800048828125" text="Department" />
                               <TableColumn fx:id="scheduledtable_columnlevel" prefWidth="94.39990234375" text="Student Level" />
                           </columns>
@@ -325,7 +325,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <MFXScrollPane fx:id="database_pane" prefHeight="182.0" prefWidth="1195.0" visible="false">
+                  <MFXScrollPane fx:id="database_pane" prefHeight="182.0" prefWidth="1195.0">
                      <content>
                         <VBox prefHeight="593.0" prefWidth="1129.0">
                            <children>

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
 
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -50,6 +51,22 @@ public class RoomTableDB {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e.getMessage());
+		}
+	}
+	
+	public static void setItems(int ID, MFXTextField bname, MFXTextField rname, MFXTextField capacity) {
+		conn = connectdb();
+		try {
+			PreparedStatement ps = conn.prepareStatement("Select * from Rooms where ID="+ID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				bname.setText(rs.getString("bname"));
+				rname.setText(rs.getString("rname"));
+				capacity.setText(String.valueOf(rs.getInt("Size")));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 	}
 }

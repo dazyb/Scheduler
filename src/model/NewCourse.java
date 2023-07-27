@@ -3,17 +3,21 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
+
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 
 public class NewCourse {
 	private String semester;
 	static Connection conn = null;
 
-	public NewCourse(String semester) {
-		super();
-		this.semester = semester;
-	}
+//	public NewCourse(String semester) {
+//		super();
+//		this.semester = semester;
+//	}
 	
 	public static Connection connectdb() {
 		try {
@@ -50,10 +54,10 @@ public class NewCourse {
 		}
 	}
 	
-	public void update(int id, String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
-			String programme, String group) {
+	public static void update(int id, String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
+			String programme, String group, String sem) {
 		conn = connectdb();
-		String query = "update "+this.semester+" set CourseName='"+courseName+"',Departmenr='"+department+"',CourseCode='"+courseCode+"',LecturerName='"+lecturerName+"',"
+		String query = "update "+sem+" set CourseName='"+courseName+"',Department='"+department+"',CourseCode='"+courseCode+"',LecturerName='"+lecturerName+"',"
 				+ "LecturerInitials='"+lecturerInitials+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme+"',Grouping='"+group+"' where ID="+id;
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -62,4 +66,31 @@ public class NewCourse {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	public static void setItems(int ID, MFXTextField courseName, MFXTextField courseCode, MFXComboBox<String> dept, MFXTextField lname,  MFXTextField linitials,MFXTextField noStudents, MFXComboBox<Integer> level, MFXTextField programme, MFXTextField group,
+			MFXComboBox<String> sem) {
+		conn = connectdb();
+		if(ID>0) {
+			try {
+				PreparedStatement ps = conn.prepareStatement("select * from SecondSemester where  ID="+ID);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					courseName.setText(rs.getString("CourseName"));
+					courseCode.setText(rs.getString("CourseCode"));
+					noStudents.setText(rs.getString("NumberOfStudents"));
+					lname.setText(rs.getString("LecturerName"));
+					dept.setText(rs.getString("Department"));
+					linitials.setText(rs.getString("LecturerInitials"));
+					level.setText(String.valueOf(rs.getInt("StudentLevel")));
+					group.setText(rs.getString("Groupings"));
+					programme.setText(rs.getString("Programme"));
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.err.println(e.getMessage());
+			}
+		}
+		
+	}
+	
 }

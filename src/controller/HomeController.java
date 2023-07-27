@@ -6,6 +6,8 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import org.apache.commons.configuration.ConfigurationException;
+
 import application.Login;
 import application.NewCourse;
 import application.Room;
@@ -19,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.SecondSemesterTableDB;
+import model.Temp;
 import model.RoomTableContents;
 import model.RoomTableDB;
 import model.ScheduleTableDB;
@@ -212,6 +216,7 @@ public class HomeController implements Initializable {
     ObservableList<String> table_list = FXCollections.observableArrayList("Course Table","Scheduled Table","Room Table");
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> dept_list = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
+    ObservableList<String> type_list =FXCollections.observableArrayList("MSSQL","MySQL");
         
     
     
@@ -225,7 +230,9 @@ public class HomeController implements Initializable {
 			selectTable_cbox.setItems(table_list);
 			sel_dept_cbox.setItems(dept_list);
 			sel_studentLevel_cbox.setItems(level_list);
-			//
+			
+			
+			connectionUrl_field.setText(Temp.configuration().getProperty("jdbcUrl").toString());
 			
 		
 //			timetable_grid.add(add_btn, 1, 1, 2, 1);
@@ -355,13 +362,18 @@ public class HomeController implements Initializable {
 	@FXML
     void update_db(ActionEvent event) {
 		String $table_name =  current_table_name.getText();
+		Temp.setProperty("ButtonStatus", "Update");
+		String ID;
 		switch($table_name){
 			case "Course Table":
+				ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
+				Temp.setProperty("ID", ID);
 				new NewCourse();
-				break;
 			case "Schedule Table":
 				break;
 			case "Room Table":
+				ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
+				Temp.setProperty("ID", ID);
 				new Room();
 				break;
 			default:
@@ -377,6 +389,7 @@ public class HomeController implements Initializable {
 	@FXML
     void add_db(ActionEvent event) {
 		String $table_name =  current_table_name.getText();
+		Temp.setProperty("ButtonStatus", "Add");
 		switch($table_name){
 			case "Course Table":
 				new NewCourse();
@@ -444,48 +457,12 @@ public class HomeController implements Initializable {
 //	    }
 //	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//table contents
     ObservableList<SecondSemesterTableContents> list_Controller;
     ObservableList<ScheduleTableContents> list_Controller_scheduleTable;
-    ObservableList<RoomTableContents> list_Controller_roomTable;
-    
-    
-  //table(coursetable)
+    ObservableList<RoomTableContents> list_Controller_roomTable;    
+    //table(coursetable)
   	private void setupTableView_roomTable() {
   		roomTable_columnID.setCellValueFactory(new PropertyValueFactory<RoomTableContents,Integer>("ID"));
   		roomTable_columnbname.setCellValueFactory(new PropertyValueFactory<RoomTableContents,String>("Building_Name"));
@@ -494,8 +471,7 @@ public class HomeController implements Initializable {
 
   		list_Controller_roomTable=RoomTableDB.getDatabaseTable();
   		roomtable.setItems(list_Controller_roomTable);
-  	}
-    
+  	}   
 	//table(coursetable)
 	private void setupTableView_courseTable() {
 		courseTable_columnID.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,Integer>("ID"));
@@ -511,9 +487,7 @@ public class HomeController implements Initializable {
 		
 		list_Controller=SecondSemesterTableDB.getDatabaseTable();
 		coursetable.setItems(list_Controller);
-	}
-	
-	
+	}	
 	//table(Schedule)
 	private void setupTableView_scheduleTable() {
 		scheduledtable_columnID.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,Integer>("ID"));
@@ -529,6 +503,4 @@ public class HomeController implements Initializable {
 		list_Controller_scheduleTable=ScheduleTableDB.getScheduleTable();
 		scheduledtable.setItems(list_Controller_scheduleTable);
 	}
-
-
 }
