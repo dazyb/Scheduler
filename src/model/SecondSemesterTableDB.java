@@ -172,15 +172,15 @@ public class SecondSemesterTableDB {
 		try 
 		{
 			PreparedStatement prest=conn.prepareStatement("insert into SecondSemester(Department,CourseName, LecturerName,LecturerInitials,StudentLevel,CourseCode,NumberOfStudents,Programme,Groupings) values(?,?,?,?,?,?,?,?,?)");
-			prest.setString(1, Department.toUpperCase());
-			prest.setString(2, CourseName.toUpperCase());
-			prest.setString(3, LecturerName.toUpperCase());
-			prest.setString(4, LecturerInitials.toUpperCase());
+			prest.setString(1, Department);
+			prest.setString(2, CourseName);
+			prest.setString(3, LecturerName);
+			prest.setString(4, LecturerInitials);
 			prest.setInt(5, Level);
-			prest.setString(6, CourseCode.toUpperCase());
+			prest.setString(6, CourseCode);
 			prest.setInt(7, noStudents);
-			prest.setString(8, Programme.toUpperCase());
-			prest.setString(9, Groupings.toUpperCase());
+			prest.setString(8, Programme);
+			prest.setString(9, Groupings);
 			prest.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Added Successfully");
@@ -194,14 +194,14 @@ public class SecondSemesterTableDB {
 	public static void updateCourse(String code, String cname, int noStudents,int ID, String lin, String lname, String groupings, String programme, String department, int level) {
 		conn = connectdb(); 
 		try {
-			PreparedStatement ps = conn.prepareStatement("update SecondSemester set CourseName='"+cname.toUpperCase()+"', NumberOfStudents='"+noStudents+"' , CourseCode='"+code.toUpperCase()+"', LecturerInitials='"+lin.toUpperCase()+"', LecturerName='"+lname.toUpperCase()+"',"
-					+ " Groupings='"+groupings.toUpperCase()+"', Programme='"+programme.toUpperCase()+"', Department='"+department.toUpperCase()+"', StudentLevel='"+level+"' where ID="+ID+"");
+			PreparedStatement ps = conn.prepareStatement("update SecondSemester set CourseName='"+cname+"', NumberOfStudents='"+noStudents+"' , CourseCode='"+code+"', LecturerInitials='"+lin+"', LecturerName='"+lname+"',"
+					+ " Groupings='"+groupings+"', Programme='"+programme+"', Department='"+department+"', StudentLevel='"+level+"' where ID="+ID+"");
 			ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Updated Successfully");
+			JOptionPane.showMessageDialog(null, "Row Updated");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "Update Unsuccessfull"+e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.err.println(e.getMessage());
 		}
 	}

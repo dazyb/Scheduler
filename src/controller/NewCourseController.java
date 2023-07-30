@@ -72,22 +72,9 @@ public class NewCourseController implements Initializable{
    	 stage.close();
     }
     
-    
-    
     @FXML
     void addNewCourse(ActionEvent event) {
-    	String ButtonState = Temp.configuration().getProperty("ButtonStatus").toString();
-    	switch(ButtonState) {
-    		case "Update":
-    			NewCourse.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), 
-    					lecturername_field.getText(), linitial_field.getText(), Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText(),
-    					semester_cbox.getSelectedItem());
-    			break;
-    		case "Add":
-    			NewCourse.add(coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), 
-    					lecturername_field.getText(), linitial_field.getText(), Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText());
-    	}
-    	
+    	Temp.setProperty("ID", "0");
     }
     
 	

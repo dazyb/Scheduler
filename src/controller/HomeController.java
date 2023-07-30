@@ -233,7 +233,6 @@ public class HomeController implements Initializable {
 			
 			
 			connectionUrl_field.setText(Temp.configuration().getProperty("jdbcUrl").toString());
-			connectionType_cbox.setItems(type_list);
 			
 		
 //			timetable_grid.add(add_btn, 1, 1, 2, 1);

@@ -44,14 +44,13 @@ public class RoomTableDB {
 		conn = connectdb();
 		try {
 			PreparedStatement ps = conn.prepareStatement("insert into Rooms(BuildingName,RoomName,Size) values(?,?,?)");
-			ps.setString(1, buildingName.toUpperCase());
-			ps.setString(2, roomName.toUpperCase());
+			ps.setString(1, buildingName);
+			ps.setString(2, roomName);
 			ps.setInt(3, capacity);
 			ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Added SuccessFully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "Unsuccessful\n"+e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -61,26 +60,13 @@ public class RoomTableDB {
 			PreparedStatement ps = conn.prepareStatement("Select * from Rooms where ID="+ID);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				bname.setText(rs.getString("BuildingName"));
-				rname.setText(rs.getString("RoomName"));
+				bname.setText(rs.getString("bname"));
+				rname.setText(rs.getString("rname"));
 				capacity.setText(String.valueOf(rs.getInt("Size")));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "Load Error\n"+e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
-	
-	
-	public static void update(int ID, MFXTextField bname, MFXTextField rname, MFXTextField capacity) {
-		conn = connectdb();
-		try {
-			PreparedStatement ps = conn.prepareStatement("update Rooms set BuildingName='"+bname.getText().toUpperCase()+"', RoomName='"+rname.getText().toUpperCase()+"', Size="+Integer.parseInt(capacity.getText())+"where ID="+ID);
-			ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Updated SuccessFully");
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Unsuccessful\n"+e.getMessage());
-		}
-	}
-
 }

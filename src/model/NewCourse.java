@@ -11,7 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 
 public class NewCourse {
-	public static String semester;
+	private String semester;
 	static Connection conn = null;
 
 //	public NewCourse(String semester) {
@@ -31,41 +31,39 @@ public class NewCourse {
 		}
 	}
 	
-	public static void add(String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
+	public void add(String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
 			String programme, String group) {
 		conn = connectdb();
-		String current_semester = semester;
+		String current_semester = this.semester;
 		try {
 			PreparedStatement ps = conn.prepareStatement("insert into "+current_semester+"(CourseName,Department,CourseCode,LecturerName,LecturerInitials,NumberOfStudents,StudentLevel,Programme,Groupings "
 					+ "values (?,?,?,?,?,?,?,?,?))");
-			ps.setString(1, courseName.toUpperCase());
-			ps.setString(2, department.toUpperCase());
-			ps.setString(3, courseCode.toUpperCase());
-			ps.setString(4, lecturerName.toUpperCase());
-			ps.setString(5, lecturerInitials.toUpperCase());
+			ps.setString(1, courseName);
+			ps.setString(2, department);
+			ps.setString(3, courseCode);
+			ps.setString(4, lecturerName);
+			ps.setString(5, lecturerInitials);
 			ps.setInt(6, numberOfStudents);
 			ps.setInt(7, level);
-			ps.setString(8, programme.toUpperCase());
-			ps.setString(9, group.toUpperCase());
+			ps.setString(8, programme);
+			ps.setString(9, group);
 			ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Added Successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "Add Unsuccessful\n"+e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 	
 	public static void update(int id, String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
 			String programme, String group, String sem) {
 		conn = connectdb();
-		String query = "update "+sem+" set CourseName='"+courseName.toUpperCase()+"',Department='"+department.toUpperCase()+"',CourseCode='"+courseCode.toUpperCase()+"',LecturerName='"+lecturerName.toUpperCase()+"',"
-				+ "LecturerInitials='"+lecturerInitials.toUpperCase()+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme.toUpperCase()+"',Grouping='"+group.toUpperCase()+"' where ID="+id;
+		String query = "update "+sem+" set CourseName='"+courseName+"',Department='"+department+"',CourseCode='"+courseCode+"',LecturerName='"+lecturerName+"',"
+				+ "LecturerInitials='"+lecturerInitials+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme+"',Grouping='"+group+"' where ID="+id;
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Updated Successfully");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Update Unsuccessful\n"+e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -83,7 +81,7 @@ public class NewCourse {
 					lname.setText(rs.getString("LecturerName"));
 					dept.setText(rs.getString("Department"));
 					linitials.setText(rs.getString("LecturerInitials"));
-					level.setValue(rs.getInt("StudentLevel"));
+					level.setText(String.valueOf(rs.getInt("StudentLevel")));
 					group.setText(rs.getString("Groupings"));
 					programme.setText(rs.getString("Programme"));
 				}

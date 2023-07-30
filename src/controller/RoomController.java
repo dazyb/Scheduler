@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.RoomTableDB;
-import model.Temp;
 
 public class RoomController implements Initializable{
 	
@@ -35,13 +34,6 @@ public class RoomController implements Initializable{
     @FXML
     private TextArea preView_textarea;
     
-    @Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-    	add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
-		RoomTableDB.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()),buildingname_field, roomname_field, capacity_field);
-	}
-	
     
     //clickables
     @FXML
@@ -53,23 +45,7 @@ public class RoomController implements Initializable{
     
     @FXML
     void addNewRoom(ActionEvent event) {
-    	String ButtonState = Temp.configuration().getProperty("ButtonStatus").toString();
-    	switch(ButtonState) {
-    		case "Update":
-    			RoomTableDB.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), buildingname_field, roomname_field, capacity_field);
-    			break;
-    		case "Add":
-    			RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
-    			break;
-    	}
-//    	if(ButtonState == "Update") {
-//    		RoomTableDB.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), buildingname_field, roomname_field, capacity_field);
-//    		System.out.println("1\n"+ButtonState);
-//    	}
-//    	else {
-//    		RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
-//    		System.out.println("2");
-//    	}
+    	RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
 //    	clear();
     }
 	
@@ -78,6 +54,10 @@ public class RoomController implements Initializable{
     	preView_textarea.setText("Building's Name = "+buildingname_field.getText()+"\nRoom's Name = "+roomname_field.getText()+"\nRoom's Capacity = "+capacity_field.getText());
     }
     
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+	}
 	
 	//clear
 	void clear() {
@@ -85,6 +65,7 @@ public class RoomController implements Initializable{
 		roomname_field.clear();
 		capacity_field.clear();
 	}
+	
 	
 	
 	
