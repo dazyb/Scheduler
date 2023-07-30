@@ -39,7 +39,7 @@ public class RoomController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
-		RoomTableDB.setItems(0,	buildingname_field , roomname_field, capacity_field);
+		RoomTableDB.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()),	buildingname_field , roomname_field, capacity_field);
 	}
 	
 	
@@ -58,12 +58,11 @@ public class RoomController implements Initializable{
     	switch($button_state) {
     		case "Update":
     			RoomTableDB.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    			break;
     		case "Add":
     			RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
     			break;
     	}
-    	
-//    	RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
 //    	clear();
     }
 	
