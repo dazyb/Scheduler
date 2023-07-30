@@ -11,7 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 
 public class NewCourse {
-	private String semester;
+	static String semester = "SecondSemester";
 	static Connection conn = null;
 
 //	public NewCourse(String semester) {
@@ -31,10 +31,10 @@ public class NewCourse {
 		}
 	}
 	
-	public void add(String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
+	public static void add(String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
 			String programme, String group) {
 		conn = connectdb();
-		String current_semester = this.semester;
+		String current_semester = semester;
 		try {
 			PreparedStatement ps = conn.prepareStatement("insert into "+current_semester+"(CourseName,Department,CourseCode,LecturerName,LecturerInitials,NumberOfStudents,StudentLevel,Programme,Groupings "
 					+ "values (?,?,?,?,?,?,?,?,?))");
