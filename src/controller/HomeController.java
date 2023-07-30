@@ -6,6 +6,8 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.configuration.ConfigurationException;
 
 import application.Login;
@@ -347,6 +349,7 @@ public class HomeController implements Initializable {
 				scheduledtable_pane.setVisible(true);
 				roomtable_pane.setVisible(false);
 				current_table_name.setText("Scheduled Table");
+				JOptionPane.showMessageDialog(null, "Click \"Schedule to Schedule or ReSchedule Timetable");
 				break;
 			case "Room Table":
 				coursetable.getItems().clear();
@@ -371,6 +374,7 @@ public class HomeController implements Initializable {
 				Temp.setProperty("ID", ID);
 				new NewCourse();
 			case "Schedule Table":
+				JOptionPane.showMessageDialog(null, "Not Applicable, Select other tables except Scheduler to proceed");
 				break;
 			case "Room Table":
 				ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
@@ -396,6 +400,7 @@ public class HomeController implements Initializable {
 				new NewCourse();
 				break;
 			case "Schedule Table":
+				JOptionPane.showMessageDialog(null, "Not Applicable, Select other tables except Scheduler to proceed");
 				break;
 			case "Room Table":
 				new Room();
