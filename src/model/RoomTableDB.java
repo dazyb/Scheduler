@@ -64,9 +64,22 @@ public class RoomTableDB {
 				rname.setText(rs.getString("rname"));
 				capacity.setText(String.valueOf(rs.getInt("Size")));
 			}
+			JOptionPane.showMessageDialog(null, "Added Successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Add Unsuccessfully\n"+e.getMessage());
+		}
+	}
+	
+	public static void update(int ID, String bname, String rname, int capacity) {
+		conn = connectdb();
+		try {
+			PreparedStatement ps = conn.prepareStatement("update Rooms set BuildingName='"+bname.toUpperCase()+"', RoomName='"+rname.toUpperCase()+"', Size="+capacity+" where ID="+ID);
+			ps.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Updated Successfully");
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Update Unsuccessfully\n"+e.getMessage());
 		}
 	}
 }
