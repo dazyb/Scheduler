@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="853.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <top>
+      <AnchorPane prefHeight="10.0" prefWidth="854.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER">
+         <children>
+            <FontAwesomeIconView fx:id="close" glyphName="CLOSE" layoutX="828.0" layoutY="18.0" onMouseClicked="#cancel" size="23" wrappingWidth="18.91423726081848" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="246.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="201.0" fitWidth="160.0" layoutX="24.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@uccLogo.jpg" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="195.0" layoutY="209.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="4.0" prefWidth="204.0" style="-fx-background-color: blue; -fx-background-radius: 20px;" />
+                  <Label layoutX="195.0" layoutY="100.0" prefHeight="50.0" prefWidth="192.0" text="University Of Cape Coast">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="184.0" layoutY="117.0" prefHeight="66.0" prefWidth="224.0" text="Scheduler">
+                     <font>
+                        <Font name="Papyrus" size="46.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="102.0" layoutY="277.0" rotate="60.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="35.0" layoutY="12.0" rotate="50.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="24.0" layoutY="219.0" rotate="-49.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="318.0" layoutY="2.0" rotate="-71.6" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="125.0" layoutY="339.0" rotate="21.4" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="205.0" layoutY="2.0" rotate="-59.6" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="125.0" layoutY="20.0" rotate="120.1" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="396.0" layoutY="2.0" rotate="60.9" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="339.0" layoutY="277.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="215.0" layoutY="329.0" rotate="118.1" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="396.0" layoutY="361.0" rotate="93.8" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="227.0" layoutY="249.0" rotate="65.6" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="271.0" layoutY="54.0" rotate="69.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="396.0" layoutY="85.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="63.0" layoutX="44.0" layoutY="339.0" rotate="-57.1" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="102.0" layoutY="-18.0" rotate="80.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="284.0" layoutY="257.0" rotate="47.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="362.0" layoutY="237.0" rotate="-42.1" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="172.0" layoutY="346.0" rotate="136.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="181.0" layoutY="219.0" rotate="60.4" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="312.0" layoutY="346.0" rotate="147.5" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="406.0" layoutY="304.0" rotate="96.5" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="63.0" layoutX="410.0" layoutY="164.0" rotate="25.3" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="189.0" layoutY="47.0" rotate="145.3" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="261.0" layoutY="361.0" rotate="88.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="159.0" layoutY="273.0" rotate="-40.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="296.0" layoutY="207.0" rotate="-76.6" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="278.0" layoutY="304.0" rotate="65.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="385.0" layoutY="339.0" rotate="71.6" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="406.0" layoutY="237.0" rotate="-50.7" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="12.0" layoutY="117.0" rotate="-167.2" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="63.0" layoutX="24.0" layoutY="277.0" rotate="55.1" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+               </children>
+            </AnchorPane>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="182.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" prefHeight="58.0" prefWidth="403.0" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="36.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Label>
+                  <AnchorPane prefHeight="2.0" prefWidth="420.0">
+                     <children>
+                        <Pane layoutX="188.0" layoutY="2.0" prefHeight="3.0" prefWidth="118.0" style="-fx-background-color: red; -fx-background-radius: 25px;" AnchorPane.rightAnchor="138.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label prefHeight="18.0" prefWidth="398.0" text="Username" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <MFXTextField fx:id="username_field" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 15px; -fx-border-radius: 15px;">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXTextField>
+                  <Label prefHeight="18.0" prefWidth="398.0" text="Password" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <MFXPasswordField fx:id="password_field" floatMode="DISABLED" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 15px; -fx-border-radius: 15px;">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXPasswordField>
+                  <MFXCheckbox fx:id="stay_logged_check" alignment="CENTER" contentDisplay="CENTER" gap="0.0" graphicTextGap="0.0" prefHeight="26.0" prefWidth="129.0" text="Keep Me Signed In" textFill="#fcfcfc" underline="true">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </MFXCheckbox>
+                  <MFXButton fx:id="submit_button" buttonType="RAISED" depthLevel="LEVEL5" onAction="#submit" prefHeight="26.0" prefWidth="194.0" rippleColor="GREEN" style="-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: white;" text="submit">
+                     <VBox.margin>
+                        <Insets left="100.0" top="10.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
