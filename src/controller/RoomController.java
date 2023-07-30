@@ -39,7 +39,9 @@ public class RoomController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
+		RoomTableDB.setItems(0,	buildingname_field , roomname_field, capacity_field);
 	}
+	
 	
     
     //clickables
