@@ -38,32 +38,34 @@ public class NewCourse {
 		try {
 			PreparedStatement ps = conn.prepareStatement("insert into "+current_semester+"(CourseName,Department,CourseCode,LecturerName,LecturerInitials,NumberOfStudents,StudentLevel,Programme,Groupings "
 					+ "values (?,?,?,?,?,?,?,?,?))");
-			ps.setString(1, courseName);
-			ps.setString(2, department);
-			ps.setString(3, courseCode);
-			ps.setString(4, lecturerName);
-			ps.setString(5, lecturerInitials);
+			ps.setString(1, courseName.toUpperCase());
+			ps.setString(2, department.toUpperCase());
+			ps.setString(3, courseCode.toUpperCase());
+			ps.setString(4, lecturerName.toUpperCase());
+			ps.setString(5, lecturerInitials.toUpperCase());
 			ps.setInt(6, numberOfStudents);
 			ps.setInt(7, level);
-			ps.setString(8, programme);
-			ps.setString(9, group);
+			ps.setString(8, programme.toUpperCase());
+			ps.setString(9, group.toUpperCase());
 			ps.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Added Successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Add Unsuccessful\n"+e.getMessage());
 		}
 	}
 	
 	public static void update(int id, String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
 			String programme, String group, String sem) {
 		conn = connectdb();
-		String query = "update "+sem+" set CourseName='"+courseName+"',Department='"+department+"',CourseCode='"+courseCode+"',LecturerName='"+lecturerName+"',"
-				+ "LecturerInitials='"+lecturerInitials+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme+"',Grouping='"+group+"' where ID="+id;
+		String query = "update "+sem+" set CourseName='"+courseName.toUpperCase()+"',Department='"+department.toUpperCase()+"',CourseCode='"+courseCode.toUpperCase()+"',LecturerName='"+lecturerName.toUpperCase()+"',"
+				+ "LecturerInitials='"+lecturerInitials.toUpperCase()+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme.toUpperCase()+"',Grouping='"+group.toUpperCase()+"' where ID="+id;
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Updated Successfully");
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Update Unsuccessfully\n"+e.getMessage());
 		}
 	}
 	
@@ -87,7 +89,7 @@ public class NewCourse {
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "Load Details Unsuccessful\n"+e.getMessage());
 			}
 		}
 		
