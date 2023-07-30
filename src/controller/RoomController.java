@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.RoomTableDB;
+import model.Temp;
 
 public class RoomController implements Initializable{
 	
@@ -34,6 +35,12 @@ public class RoomController implements Initializable{
     @FXML
     private TextArea preView_textarea;
     
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
+	}
+	
     
     //clickables
     @FXML
@@ -45,7 +52,16 @@ public class RoomController implements Initializable{
     
     @FXML
     void addNewRoom(ActionEvent event) {
-    	RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    	String $button_state = Temp.configuration().getProperty("ButtonStatus").toString();
+    	switch($button_state) {
+    		case "Update":
+    			RoomTableDB.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    		case "Add":
+    			RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    			break;
+    	}
+    	
+//    	RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
 //    	clear();
     }
 	
@@ -54,11 +70,7 @@ public class RoomController implements Initializable{
     	preView_textarea.setText("Building's Name = "+buildingname_field.getText()+"\nRoom's Name = "+roomname_field.getText()+"\nRoom's Capacity = "+capacity_field.getText());
     }
     
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-	}
-	
+
 	//clear
 	void clear() {
 		buildingname_field.clear();
