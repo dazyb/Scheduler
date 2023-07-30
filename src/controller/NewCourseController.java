@@ -74,7 +74,18 @@ public class NewCourseController implements Initializable{
     
     @FXML
     void addNewCourse(ActionEvent event) {
-    	Temp.setProperty("ID", "0");
+//    	Temp.setProperty("ID", "0");
+    	String $button_state = Temp.configuration().getProperty("ButtonStatus").toString();
+    	switch($button_state) {
+    		case "Update":
+    			NewCourse.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
+    					, Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText(), semester_cbox.getSelectedItem());
+    			break;
+    		case "Add":
+    			NewCourse.add(coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
+    					, Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText());
+    	}
+    	
     }
     
 	
@@ -89,9 +100,4 @@ public class NewCourseController implements Initializable{
 		NewCourse.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 
 				lecturername_field, linitial_field, noStudent_field, level_cbox, programme_field, group_field, semester_cbox);	
 	}
-	
-
-	
-	
-
 }
