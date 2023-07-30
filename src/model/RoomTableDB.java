@@ -44,13 +44,14 @@ public class RoomTableDB {
 		conn = connectdb();
 		try {
 			PreparedStatement ps = conn.prepareStatement("insert into Rooms(BuildingName,RoomName,Size) values(?,?,?)");
-			ps.setString(1, buildingName);
-			ps.setString(2, roomName);
+			ps.setString(1, buildingName.toUpperCase());
+			ps.setString(2, roomName.toUpperCase());
 			ps.setInt(3, capacity);
 			ps.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Added Successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Add Unsuccessfully\n"+e.getMessage());
 		}
 	}
 	
@@ -60,14 +61,13 @@ public class RoomTableDB {
 			PreparedStatement ps = conn.prepareStatement("Select * from Rooms where ID="+ID);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				bname.setText(rs.getString("bname"));
-				rname.setText(rs.getString("rname"));
+				bname.setText(rs.getString("BuildingName"));
+				rname.setText(rs.getString("RoomName"));
 				capacity.setText(String.valueOf(rs.getInt("Size")));
 			}
-			JOptionPane.showMessageDialog(null, "Added Successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "Add Unsuccessfully\n"+e.getMessage());
+			JOptionPane.showMessageDialog(null, "Load Details Unsuccessful\n"+e.getMessage());
 		}
 	}
 	
