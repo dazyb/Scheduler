@@ -325,7 +325,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <MFXScrollPane fx:id="database_pane" prefHeight="182.0" prefWidth="1195.0">
+                  <MFXScrollPane fx:id="database_pane" prefHeight="182.0" prefWidth="1195.0" visible="false">
                      <content>
                         <VBox prefHeight="593.0" prefWidth="1129.0">
                            <children>
@@ -407,7 +407,7 @@
             </StackPane>
             <StackPane layoutX="81.0" layoutY="158.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="1179.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0">
                <children>
-                  <HBox fx:id="tableoption_hbox" prefHeight="58.0" prefWidth="1155.0" visible="false">
+                  <HBox fx:id="tableoption_hbox" prefHeight="58.0" prefWidth="1155.0">
                      <children>
                         <AnchorPane prefHeight="58.0" prefWidth="154.0">
                            <children>
@@ -453,7 +453,7 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <MFXButton fx:id="swap_btn1" layoutX="27.0" layoutY="9.0" onAction="#schedule" prefHeight="18.0" prefWidth="92.0" rippleColor="#fa9afa" style="-fx-background-color: #ef43ef; -fx-text-fill: white;" text="Schedule" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <MFXButton fx:id="schedule_btn" layoutX="27.0" layoutY="9.0" onAction="#schedule" prefHeight="18.0" prefWidth="92.0" rippleColor="#fa9afa" style="-fx-background-color: #ef43ef; -fx-text-fill: white;" text="Schedule" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="5.0" />
