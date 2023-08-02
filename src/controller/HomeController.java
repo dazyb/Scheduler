@@ -100,6 +100,9 @@ public class HomeController implements Initializable {
     private MFXButton swap_btn;
     
     @FXML
+    private MFXButton schedule_btn;
+    
+    @FXML
     private AnchorPane settings_tab;
 
     @FXML
@@ -340,6 +343,11 @@ public class HomeController implements Initializable {
 				scheduledtable_pane.setVisible(false);
 				roomtable_pane.setVisible(false);
 				current_table_name.setText("Course Table");
+				add_btn.setDisable(false);
+				update_btn.setDisable(false);
+				swap_btn.setDisable(true);
+				schedule_btn.setDisable(true);
+				
 				break;
 			case "Scheduled Table":
 				coursetable.getItems().clear();
@@ -349,7 +357,10 @@ public class HomeController implements Initializable {
 				scheduledtable_pane.setVisible(true);
 				roomtable_pane.setVisible(false);
 				current_table_name.setText("Scheduled Table");
-				JOptionPane.showMessageDialog(null, "Click \"Schedule to Schedule or ReSchedule Timetable");
+				add_btn.setDisable(true);
+				update_btn.setDisable(true);
+				swap_btn.setDisable(false);
+				schedule_btn.setDisable(false);
 				break;
 			case "Room Table":
 				coursetable.getItems().clear();
@@ -359,6 +370,10 @@ public class HomeController implements Initializable {
 				scheduledtable_pane.setVisible(false);
 				roomtable_pane.setVisible(true);
 				current_table_name.setText("Room Table");
+				add_btn.setDisable(false);
+				update_btn.setDisable(false);
+				swap_btn.setDisable(true);
+				schedule_btn.setDisable(true);
 				break;
 		}
     }
@@ -370,18 +385,26 @@ public class HomeController implements Initializable {
 		String ID;
 		switch($table_name){
 			case "Course Table":
-				ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
-				Temp.setProperty("ID", ID);
-				new NewCourse();
-			case "Schedule Table":
-				JOptionPane.showMessageDialog(null, "Not Applicable, Select other tables except Scheduler to proceed");
-				break;
+				try {
+					ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
+					Temp.setProperty("ID", ID);
+					new NewCourse();
+				} catch (NullPointerException e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Select item to update");
+				}
 			case "Room Table":
-				ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
-				Temp.setProperty("ID", ID);
-				new Room();
+				try {
+					ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
+					Temp.setProperty("ID", ID);
+					new Room();
+				} catch (NullPointerException e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Select item to update");
+				}
 				break;
 			default:
+				JOptionPane.showMessageDialog(null, "Not Applicable");
 				break;
 		}
     }
@@ -399,13 +422,11 @@ public class HomeController implements Initializable {
 			case "Course Table":
 				new NewCourse();
 				break;
-			case "Schedule Table":
-				JOptionPane.showMessageDialog(null, "Not Applicable, Select other tables except Scheduler to proceed");
-				break;
 			case "Room Table":
 				new Room();
 				break;
 			default:
+				JOptionPane.showMessageDialog(null, "Not Applicable");
 				break;
 		}
     }
