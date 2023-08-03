@@ -4,11 +4,11 @@ package model;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-public class Temp {
+public class DBConfig {
 	static PropertiesConfiguration config;
 	public static PropertiesConfiguration configuration() {
 		try {
-			config = new PropertiesConfiguration("src/temp.properties");
+			config = new PropertiesConfiguration("src/dbconfig.properties");
 		} catch (ConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
