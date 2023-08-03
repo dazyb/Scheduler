@@ -1,6 +1,6 @@
-package model;
+ package model;
 
-
+import javax.swing.JOptionPane;
 
 public class TimetableGA {
 	
@@ -24,7 +24,7 @@ public class TimetableGA {
         while (ga.isTerminationConditionMet(generation, 1000) == false
             && ga.isTerminationConditionMet(population) == false) {
             // Print fitness
-            System.out.println("G" + generation + " Best fitness: " + population.getFittest(0).getFitness());
+//            System.out.println("G" + generation + " Best fitness: " + population.getFittest(0).getFitness());
 
             // Apply crossover
             population = ga.crossoverPopulation(population);
@@ -41,10 +41,8 @@ public class TimetableGA {
 
         // Print fitness
         timetable.createClasses(population.getFittest(0));
-        System.out.println();
-        System.out.println("Solution found in " + generation + " generations");
-        System.out.println("Final solution fitness: " + population.getFittest(0).getFitness());
-        System.out.println("Clashes: " + timetable.calcClashes());
+        JOptionPane.showMessageDialog(null,"Solution found in " + generation + " generations\n"+"Final solution fitness: " + population.getFittest(0).getFitness()
+        		+"\nClashes: " + timetable.calcClashes());
 
         // Print classes
         System.out.println();
@@ -62,6 +60,7 @@ public class TimetableGA {
         }
 
 	}
+	
 //	public static void main(String[] args) {
 //			schedule();
 //    	    }

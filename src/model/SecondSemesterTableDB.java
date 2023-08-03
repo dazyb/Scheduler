@@ -76,7 +76,8 @@ public class SecondSemesterTableDB {
 		conn =  connectdb();
 		try {
 			PreparedStatement ps = conn.prepareStatement("Select ID,DayOfTheWeek,TimeAllocated from"
-					+ " Timeslot");
+					+ " Timeslot where TimeAllocated='06:30 AM' or TimeAllocated='08:30 AM' or TimeAllocated='10:30 AM'or TimeAllocated='12:30 PM' or TimeAllocated='02:30 PM' or TimeAllocated='04:30 PM'"
+					);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				timetable.addTimeslot(rs.getInt("ID"), rs.getString("DayOfTheWeek").concat(" ").concat(rs.getString("TimeAllocated")));

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -30,6 +31,17 @@ public class ScheduleTableDB {
 			System.err.println(e.getMessage());
 			
 			return null;
+		}
+	}
+	
+	public void truncate() {
+		conn = connectdb();
+		try {
+			Statement s = conn.createStatement();
+			s.executeUpdate("truncate table Schedule");
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
 	
@@ -113,7 +125,7 @@ public class ScheduleTableDB {
 		//position =  [rowIndex,columnIndex]
 		String rowIndex = position[0];
 		String columnIndex = position[1];
-	    HashMap<String,Integer> time = new HashMap<String,Integer>();
+	      HashMap<String,Integer> time = new HashMap<String,Integer>();
 	    time.put("06", 1);
 	    time.put("07", 2);
 	    time.put("08", 3);
@@ -145,5 +157,4 @@ public class ScheduleTableDB {
 //				break;		
 		}
 	}
-	
 }
