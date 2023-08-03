@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import model.SecondSemesterTableDB;
-import model.Temp;
+import model.DBConfig;
 import model.NewCourse;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -75,10 +75,10 @@ public class NewCourseController implements Initializable{
     @FXML
     void addNewCourse(ActionEvent event) {
 //    	Temp.setProperty("ID", "0");
-    	String $button_state = Temp.configuration().getProperty("ButtonStatus").toString();
+    	String $button_state = DBConfig.configuration().getProperty("ButtonStatus").toString();
     	switch($button_state) {
     		case "Update":
-    			NewCourse.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
+    			NewCourse.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
     					, Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText(), semester_cbox.getSelectedItem());
     			break;
     		case "Add":
@@ -96,8 +96,8 @@ public class NewCourseController implements Initializable{
 		semester_cbox.setItems(sem_list);
 		department_cbox.setItems(dept);
 		//preset ui components(update)
-		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
-		NewCourse.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 
+		add_update_button.setText(DBConfig.configuration().getProperty("ButtonStatus").toString());
+		NewCourse.setItems(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 
 				lecturername_field, linitial_field, noStudent_field, level_cbox, programme_field, group_field, semester_cbox);	
 	}
 }

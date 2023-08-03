@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.RoomTableDB;
-import model.Temp;
+import model.DBConfig;
 
 public class RoomController implements Initializable{
 	
@@ -38,8 +38,8 @@ public class RoomController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		add_update_button.setText(Temp.configuration().getProperty("ButtonStatus").toString());
-		RoomTableDB.setItems(Integer.parseInt(Temp.configuration().getProperty("ID").toString()),	buildingname_field , roomname_field, capacity_field);
+		add_update_button.setText(DBConfig.configuration().getProperty("ButtonStatus").toString());
+		RoomTableDB.setItems(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()),	buildingname_field , roomname_field, capacity_field);
 	}
 	
 	
@@ -54,10 +54,10 @@ public class RoomController implements Initializable{
     
     @FXML
     void addNewRoom(ActionEvent event) {
-    	String $button_state = Temp.configuration().getProperty("ButtonStatus").toString();
+    	String $button_state = DBConfig.configuration().getProperty("ButtonStatus").toString();
     	switch($button_state) {
     		case "Update":
-    			RoomTableDB.update(Integer.parseInt(Temp.configuration().getProperty("ID").toString()), buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    			RoomTableDB.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
     			break;
     		case "Add":
     			RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));

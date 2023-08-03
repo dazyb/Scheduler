@@ -33,7 +33,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.SecondSemesterTableDB;
-import model.Temp;
+import model.DBConfig;
+import model.TimetableGA;
 import model.RoomTableContents;
 import model.RoomTableDB;
 import model.ScheduleTableDB;
@@ -237,10 +238,11 @@ public class HomeController implements Initializable {
 			sel_studentLevel_cbox.setItems(level_list);
 			
 			
-			connectionUrl_field.setText(Temp.configuration().getProperty("jdbcUrl").toString());
+			connectionUrl_field.setText(DBConfig.configuration().getProperty("jdbcUrl").toString());
 			connectionType_cbox.setItems(type_list);
 			
-		
+			timetable_grid.getChildren().remove(getNodeByRowColumnIndex(1, 6, timetable_grid));	
+			
 //			timetable_grid.add(add_btn, 1, 1, 2, 1);
 //			timetable_grid.add(currenttab_label, 1, 2, 3, 1);
 ////			timetable_grid.add(welcome_message, 0, 2, 1, 1);
@@ -256,7 +258,21 @@ public class HomeController implements Initializable {
     
     
   
-    	//methods
+    //methods
+    @SuppressWarnings("static-access")
+	public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+    	  Node result = null;
+    	  ObservableList<Node> childrens = gridPane.getChildren();
+
+    	  for (Node node : childrens) {
+    	    if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+    	      result = node;
+    	      break;
+    	    }
+    	  }
+
+    	  return result;
+    	}
 
 	
 
@@ -381,13 +397,13 @@ public class HomeController implements Initializable {
 	@FXML
     void update_db(ActionEvent event) {
 		String $table_name =  current_table_name.getText();
-		Temp.setProperty("ButtonStatus", "Update");
+		DBConfig.setProperty("ButtonStatus", "Update");
 		String ID;
 		switch($table_name){
 			case "Course Table":
 				try {
 					ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
-					Temp.setProperty("ID", ID);
+					DBConfig.setProperty("ID", ID);
 					new NewCourse();
 				} catch (NullPointerException e) {
 					// TODO: handle exception
@@ -396,7 +412,7 @@ public class HomeController implements Initializable {
 			case "Room Table":
 				try {
 					ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
-					Temp.setProperty("ID", ID);
+					DBConfig.setProperty("ID", ID);
 					new Room();
 				} catch (NullPointerException e) {
 					// TODO: handle exception
@@ -417,7 +433,7 @@ public class HomeController implements Initializable {
 	@FXML
     void add_db(ActionEvent event) {
 		String $table_name =  current_table_name.getText();
-		Temp.setProperty("ButtonStatus", "Add");
+		DBConfig.setProperty("ButtonStatus", "Add");
 		switch($table_name){
 			case "Course Table":
 				new NewCourse();
@@ -438,7 +454,7 @@ public class HomeController implements Initializable {
 	
 	@FXML
     void schedule(ActionEvent event) {
-
+		TimetableGA.schedule();
     }
 	 
 //	boolean doPrint(Node n) {
