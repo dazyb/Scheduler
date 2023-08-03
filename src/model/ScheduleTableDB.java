@@ -16,24 +16,25 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 
 public class ScheduleTableDB {
 	static Connection conn = null;
+	//create connection to database
 	public static Connection connectdb() {
 		try {
 			Connection conn=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=TimeTable;integratedSecurity=true");
-//			System.out.println("YES");
 			return conn; 
 		}
 		catch(Exception e) {
 			JOptionPane.showMessageDialog(null, e);
-			System.err.println(e.getMessage());
-			
 			return null;
 		}
 	}
-	
+	//truncate table(makes room for new Schedule)
 	public void truncate() {
 		conn = connectdb();
 		try {
@@ -44,7 +45,7 @@ public class ScheduleTableDB {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
-	
+	//get schedules items from database
 	public static ObservableList<ScheduleTableContents> getScheduleTable(){
 		conn=connectdb();
 		ObservableList<ScheduleTableContents> list= FXCollections.observableArrayList();
@@ -60,7 +61,7 @@ public class ScheduleTableDB {
 		}
 		return list;
 	}
-	
+	//schedule items
 	public static void new_schedule(String CourseName, String CourseCode, String LecturerName, String RoomName, String TimeAllocated, String Department, int level, String LecturerInitials) {
 		conn = connectdb();
 		try {
@@ -80,10 +81,8 @@ public class ScheduleTableDB {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-
-	
-	public static void displaySchedule(GridPane pane, String dept, int level) {
+	//display schedule items in a gridpane
+	public static void displaySchedule(String dept, int level, StackPane pane) {
 		conn =connectdb();
 		String query = "select * from Schedule where Department='"+dept+"' and StudentLevel="+level;
 		try {
@@ -96,20 +95,15 @@ public class ScheduleTableDB {
 				rowIndex = rs.getString("TimeAllocated").substring(0,3);
 				columnIndex = rs.getString("TimeAllocated").substring(4,6);
 				position= new String[] {rowIndex,columnIndex};
-				display_gridPane(position, rs.getString("CourseCode"), rs.getString("LecturerInitials"), rs.getString("RoomName"),  pane);
+				createGridPane(pane,position,rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e.getMessage());
 		}
-		
 	}
 	
-//	public static void main(String[] args) {
-//		
-//	}
 
-	
 	//random methods
 	//create a label as a child in the grid pane
 	static Label createNode(String courseCode, String lecturerInitials, String roomName) {
@@ -117,44 +111,246 @@ public class ScheduleTableDB {
 		label.setPrefSize(86, 76);
 		label.setStyle("-fx-font-size: 14px;");
 		label.setAlignment(Pos.CENTER);
-		label.setText(courseCode+"\n   "+lecturerInitials+"\n"+roomName);
+		label.setText(courseCode+"\n"+roomName+"\n"+lecturerInitials);
 		return label;
 	}
-	//display scheduled timetable from database to grid pane
-	static void display_gridPane(String[] position, String courseCode, String lecturerInitials, String roomName, GridPane pane) {
-		//position =  [rowIndex,columnIndex]
-		String rowIndex = position[0];
-		String columnIndex = position[1];
-	      HashMap<String,Integer> time = new HashMap<String,Integer>();
-	    time.put("06", 1);
-	    time.put("07", 2);
-	    time.put("08", 3);
-	    time.put("09", 4);
-	    time.put("10", 5);
-	    time.put("11", 6);
-	    time.put("12", 7);
-	    time.put("01", 8);
-	    time.put("02", 9);
-	    time.put("03", 10);
-	    time.put("04", 11);
-	    time.put("05", 12);
-		switch (rowIndex) 
-		{
-			case "MON":
-				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1);
-				break;
-			case "TUE":
-				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2);
-				break;
-			case "WED":
-				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3);
-				break;
-			case "THU":
-				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4);
-				break;
-//			case "FRI":
-//				pane.add(createNode(courseCode,lecturerName,roomName), 5, time.get(columnIndex));
-//				break;		
-		}
+	//header labels(rows)
+	static Label headerRows(String text) {
+		Label label =new Label();
+		label.setText(text);
+		label.setAlignment(Pos.CENTER);
+		label.setStyle("-fx-font-size: 14px;");
+		return label;
 	}
+	//header labels(columns)
+	static Label headerColumns(String text) {
+		Label label = new Label();
+		label.setText(text);
+		label.setAlignment(Pos.CENTER);
+		label.setStyle("-fx-font-size: 14px;");
+		return label;
+	}
+	
+	//display scheduled timetable from database to grid pane
+	public static void createGridPane(StackPane pane, String[] position, String courseCode, String lecturerInitials, String roomName) {
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setGridLinesVisible(true);
+		//grid columns
+		ColumnConstraints column1 = new ColumnConstraints();
+		ColumnConstraints column2 = new ColumnConstraints();
+		ColumnConstraints column3 = new ColumnConstraints();
+		ColumnConstraints column4 = new ColumnConstraints();
+		ColumnConstraints column5 = new ColumnConstraints();
+		ColumnConstraints column6 = new ColumnConstraints();
+		ColumnConstraints column7 = new ColumnConstraints();
+		ColumnConstraints column8 = new ColumnConstraints();
+		ColumnConstraints column9 = new ColumnConstraints();
+		ColumnConstraints column10 = new ColumnConstraints();
+		ColumnConstraints column11 = new ColumnConstraints();
+		ColumnConstraints column12 = new ColumnConstraints();
+		ColumnConstraints column13 = new ColumnConstraints();
+		column1.setPercentWidth(20);
+		column2.setPercentWidth(20);
+		column3.setPercentWidth(20);
+		column4.setPercentWidth(20);
+		column5.setPercentWidth(20);
+		column6.setPercentWidth(20);
+		column7.setPercentWidth(20);
+		column8.setPercentWidth(20);
+		column9.setPercentWidth(20);
+		column10.setPercentWidth(20);
+		column11.setPercentWidth(20);
+		column12.setPercentWidth(20);
+		column13.setPercentWidth(20);
+		//grid rows
+		RowConstraints row1 = new RowConstraints();
+		RowConstraints row2 = new RowConstraints();
+		RowConstraints row3 = new RowConstraints();
+		RowConstraints row4 = new RowConstraints();
+		RowConstraints row5 = new RowConstraints();
+		RowConstraints row6 = new RowConstraints();
+		row1.setPercentHeight(50);
+		row2.setPercentHeight(50);
+		row3.setPercentHeight(50);
+		row4.setPercentHeight(50);
+		row5.setPercentHeight(50);
+		row6.setPercentHeight(50);
+		//add rows and columns to the grid
+		grid.getColumnConstraints().addAll(column1,column2,column3,column4,column5,column6,column7,column8,column9,column10,column11,column12);
+		grid.getRowConstraints().addAll(row1,row2,row3,row4,row5,row6);
+		//add headers(rows)
+		grid.add(headerRows("Monday"), 0, 1);
+		grid.add(headerRows("Tuesday"), 0, 2);
+		grid.add(headerRows("Wednesday"), 0, 3);
+		grid.add(headerRows("Thursday"), 0, 4);
+		grid.add(headerRows("Friday"), 0, 5);
+		//add headers(columns)
+		grid.add(headerColumns("06:30 AM\n07:30 AM"), 1, 0);
+		grid.add(headerColumns("07:30 AM\n08:30 AM"), 2, 0);
+		grid.add(headerColumns("08:30 AM\n09:30 AM"), 3, 0);
+		grid.add(headerColumns("09:30 AM\n10:30 AM"), 4, 0);
+		grid.add(headerColumns("10:30 AM\n11:30 AM"), 5, 0);
+		grid.add(headerColumns("11:30 AM\n12:30 PM"), 6, 0);
+		grid.add(headerColumns("12:30 PM\n01:30 PM"), 7, 0);
+		grid.add(headerColumns("01:30 PM\n02:30 PM"), 8, 0);
+		grid.add(headerColumns("02:30 PM\n03:30 PM"), 9, 0);
+		grid.add(headerColumns("03:30 PM\n04:30 PM"), 10, 0);
+		grid.add(headerColumns("04:30 PM\n05:30 PM"), 11, 0);
+		grid.add(headerColumns("05:30 PM\n06:30 PM"), 12, 0);
+		//fill cells
+		//position =  [rowIndex,columnIndex]
+				String rowIndex = position[0];
+				String columnIndex = position[1];
+			    HashMap<String,Integer> time = new HashMap<String,Integer>();
+			    time.put("06", 1);
+			    time.put("07", 2);
+			    time.put("08", 3);
+			    time.put("09", 4);
+			    time.put("10", 5);
+			    time.put("11", 6);
+			    time.put("12", 7);
+			    time.put("01", 8);
+			    time.put("02", 9);
+			    time.put("03", 10);
+			    time.put("04", 11);
+			    time.put("05", 12);
+				switch (rowIndex) 
+				{
+					case "MON":
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1);
+						break;
+					case "TUE":
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2);
+						break;
+					case "WED":
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3);
+						break;
+					case "THU":
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4);
+						break;
+					case "FRI":
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 5);
+						break;		
+				}
+				pane.getChildren().add(grid);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	static void display_gridPane(String[] position, String courseCode, String lecturerInitials, String roomName, GridPane pane) {
+//		//position =  [rowIndex,columnIndex]
+//		String rowIndex = position[0];
+//		String columnIndex = position[1];
+//	    HashMap<String,Integer> time = new HashMap<String,Integer>();
+//	    time.put("06", 1);
+//	    time.put("07", 2);
+//	    time.put("08", 3);
+//	    time.put("09", 4);
+//	    time.put("10", 5);
+//	    time.put("11", 6);
+//	    time.put("12", 7);
+//	    time.put("01", 8);
+//	    time.put("02", 9);
+//	    time.put("03", 10);
+//	    time.put("04", 11);
+//	    time.put("05", 12);
+//		switch (rowIndex) 
+//		{
+//			case "MON":
+//				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1);
+//				break;
+//			case "TUE":
+//				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2);
+//				break;
+//			case "WED":
+//				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3);
+//				break;
+//			case "THU":
+//				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4);
+//				break;
+//			case "FRI":
+//				pane.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 5);
+//				break;		
+//		}
+//	}
+//	main method for class test runs	
+//	public static void main(String[] args) {
+//	
+//}
+
+
+	
 }
