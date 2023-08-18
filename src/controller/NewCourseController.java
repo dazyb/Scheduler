@@ -23,39 +23,30 @@ import javafx.stage.Stage;
 public class NewCourseController implements Initializable{
 	@FXML
     private MFXButton add_update_button;
-
     @FXML
     private MFXTextField coursecode_field;
-
     @FXML
     private MFXTextField coursename_field;
-
     @FXML
     private MFXTextField group_field;
-
     @FXML
     private MFXTextField linitial_field;
-
     @FXML
     private MFXTextField lecturername_field;
-
     @FXML
     private MFXComboBox<Integer> level_cbox;
-
     @FXML
     private VBox main_vbox;
-
     @FXML
     private MFXTextField noStudent_field;
-
     @FXML
     private MFXTextField programme_field;
-
     @FXML
     private MFXComboBox<String> semester_cbox;
-    
     @FXML
     private MFXComboBox<String> department_cbox;
+    @FXML
+    private MFXComboBox<Integer> creditHours_cbox;
     
     
     
@@ -63,6 +54,7 @@ public class NewCourseController implements Initializable{
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> sem_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
     ObservableList<String> dept = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
+    ObservableList<Integer> creditHours = FXCollections.observableArrayList(1,2,3);
     
     
     @FXML
@@ -74,12 +66,12 @@ public class NewCourseController implements Initializable{
     
     @FXML
     void addNewCourse(ActionEvent event) {
-//    	Temp.setProperty("ID", "0");
+    	DBConfig.setProperty("ID", "0");
     	String $button_state = DBConfig.configuration().getProperty("ButtonStatus").toString();
     	switch($button_state) {
     		case "Update":
     			NewCourse.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
-    					, Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText(), semester_cbox.getSelectedItem());
+    					, Integer.parseInt(noStudent_field.getText()), Integer.parseInt(level_cbox.getText()), programme_field.getText(), group_field.getText(), semester_cbox.getSelectedItem());
     			break;
     		case "Add":
     			NewCourse.add(coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
@@ -95,6 +87,7 @@ public class NewCourseController implements Initializable{
 		level_cbox.setItems(level_list);
 		semester_cbox.setItems(sem_list);
 		department_cbox.setItems(dept);
+		creditHours_cbox.setItems(creditHours);
 		//preset ui components(update)
 		add_update_button.setText(DBConfig.configuration().getProperty("ButtonStatus").toString());
 		NewCourse.setItems(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 

@@ -32,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import model.SecondSemesterTableDB;
 import model.DBConfig;
 import model.TimetableGA;
@@ -48,187 +49,135 @@ public class HomeController implements Initializable {
 	//ui components
 	@FXML
     private MFXButton add_btn;
-
     @FXML
     private FontAwesomeIconView close;
-
     @FXML
     private TableView<SecondSemesterTableContents> coursetable;
-
     @FXML
     private AnchorPane coursetable_pane;
-
     @FXML
     private FontAwesomeIconView currenttab_icon;
-
     @FXML
     private Label currenttab_label;
-
     @FXML
     private AnchorPane db_tab;
-
     @FXML
     private AnchorPane home;
-
     @FXML
     private MFXButton load_tt_btn;
-
     @FXML
     private MFXButton loadtable_btn;
-
     @FXML
     private TableView<RoomTableContents> roomtable;
-
     @FXML
     private AnchorPane roomtable_pane;
-
     @FXML
     private TableView<ScheduleTableContents> scheduledtable;
-
     @FXML
-    private AnchorPane scheduledtable_pane;
-    
+    private AnchorPane scheduledtable_pane;    
     @FXML
-    private MFXComboBox<Integer> sel_studentLevel_cbox;	
-    
+    private MFXComboBox<Integer> sel_studentLevel_cbox;	    
     @FXML
     private MFXComboBox<String> sel_dept_cbox;
-
     @FXML
     private MFXComboBox<String> selectTable_cbox;
-
     @FXML
-    private MFXButton swap_btn;
-    
+    private MFXButton swap_btn;   
     @FXML
-    private MFXButton schedule_btn;
-    
+    private MFXButton schedule_btn;   
     @FXML
     private AnchorPane settings_tab;
-
     @FXML
-    private GridPane structure_gridPane;
-
+    private MFXScrollPane structure_pane;
     @FXML
     private AnchorPane structure_tab;
-
     @FXML
     private AnchorPane table_tab;
-
     @FXML
     private HBox tableoption_hbox;
-
     @FXML
     private AnchorPane timetable;
-
     @FXML
     private GridPane timetable_grid;
-
     @FXML
     private AnchorPane timetable_tab;
-
     @FXML
-    private Label welcome_message;
-    
+    private Label welcome_message;    
     @FXML
     private HBox ttoptionbox;
-
     @FXML
-    private MFXButton update_btn;
-    
+    private MFXButton update_btn;    
     @FXML
-    private MFXTextField current_table_name;
-    
+    private MFXTextField current_table_name;    
     @FXML
-    private MFXComboBox<String> connectionType_cbox;
-    
+    private MFXComboBox<String> connectionType_cbox;    
     @FXML
-    private MFXTextField connectionUrl_field;
-    
+    private MFXTextField connectionUrl_field;   
     @FXML
-    private MFXScrollPane database_pane;
-    
+    private MFXScrollPane database_pane;   
     @FXML
-    private TableColumn<RoomTableContents, Integer> roomTable_columnID;
-    
+    private TableColumn<RoomTableContents, Integer> roomTable_columnID;    
     @FXML
-    private TableColumn<RoomTableContents, String> roomTable_columnbname;
-    
+    private TableColumn<RoomTableContents, String> roomTable_columnbname;    
     @FXML
-    private TableColumn<RoomTableContents, String> roomTable_columnrname;
-    
+    private TableColumn<RoomTableContents, String> roomTable_columnrname;    
     @FXML
-    private TableColumn<RoomTableContents, Integer> roomTable_columncapacity;
-    
+    private TableColumn<RoomTableContents, Integer> roomTable_columncapacity;   
     @FXML
-    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnID;
-    
+    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnID;    
+//    @FXML
+//    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseName;    
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseName;
-    
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseCode;    
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columncourseCode;
-    
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlname;    
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlname;
-    
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlinitials;    
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columnlinitials;
-    
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columndept;    
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columndept;
-    
-    @FXML
-    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnnoStudents;
-    
+    private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnnoStudents;    
     @FXML
     private TableColumn<SecondSemesterTableContents, Integer> courseTable_columnstudentLevel;
-
     @FXML
-    private TableColumn<SecondSemesterTableContents, String> courseTable_columnprogramme;
-    
+    private TableColumn<SecondSemesterTableContents, String> courseTable_columnprogramme;    
     @FXML
     private TableColumn<SecondSemesterTableContents, String> courseTable_columngroup;
-
     @FXML
-    private TableColumn<ScheduleTableContents, Integer> scheduledtable_columnID;
-    
+    private TableColumn<ScheduleTableContents, Integer> scheduledtable_columnID;    
+//    @FXML
+//    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseName;    
     @FXML
-    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseName;
-    
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseCode;    
     @FXML
-    private TableColumn<ScheduleTableContents, String> scheduledtable_columncourseCode;
-    
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlname;   
     @FXML
-    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlname;
-    
-    @FXML
-    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlinitials;
-    
+    private TableColumn<ScheduleTableContents, String> scheduledtable_columnlinitials;    
     @FXML
     private TableColumn<ScheduleTableContents, String> scheduledtable_columnrname;
-    
     @FXML
     private TableColumn<ScheduleTableContents, Integer> scheduledtable_columntAllocated;
-    
     @FXML
     private TableColumn<ScheduleTableContents, String> scheduledtable_columndept;
-    
     @FXML
     private TableColumn<ScheduleTableContents, Integer> scheduledtable_columnlevel;
+    @FXML
+    private StackPane contents_stackpane;
+    @FXML
+    private HBox hbox;
     
-
+    @SuppressWarnings("unlikely-arg-type")
+	@FXML
+    void clear(ActionEvent event) {
+    	contents_stackpane.getChildren().remove("timetable_grid");
+    }
+    
     //combo_box items
     ObservableList<String> table_list = FXCollections.observableArrayList("Course Table","Scheduled Table","Room Table");
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> dept_list = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
-    ObservableList<String> type_list =FXCollections.observableArrayList("MSSQL","MySQL");
-        
-    
-    
-    
-    
-    @Override
+//    ObservableList<String> type_list =FXCollections.observableArrayList("MSSQL","MySQL");
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	//initialize
     		welcome_message.setText("Welcome, "+Login.Username());
@@ -237,11 +186,11 @@ public class HomeController implements Initializable {
 			sel_dept_cbox.setItems(dept_list);
 			sel_studentLevel_cbox.setItems(level_list);
 			
+//			
+//			connectionUrl_field.setText(DBConfig.configuration().getProperty("jdbcUrl").toString());
+//			connectionType_cbox.setItems(type_list);
 			
-			connectionUrl_field.setText(DBConfig.configuration().getProperty("jdbcUrl").toString());
-			connectionType_cbox.setItems(type_list);
 			
-			timetable_grid.getChildren().remove(getNodeByRowColumnIndex(1, 6, timetable_grid));	
 			
 //			timetable_grid.add(add_btn, 1, 1, 2, 1);
 //			timetable_grid.add(currenttab_label, 1, 2, 3, 1);
@@ -256,23 +205,34 @@ public class HomeController implements Initializable {
 ////			timetable_grid.getColumnConstraints().addAll(col3);
 	}
     
+//    boolean removeFromPane() {
+//        for (final Node node : this.timetable_grid.getChildren()) {
+//            if (node != null 
+//                  && node.getId() != null
+//                 ) {
+//                return this.timetable_grid.getChildren().remove(node);
+//            }
+//        }
+//        return false;
+//    }
+     
     
   
     //methods
-    @SuppressWarnings("static-access")
-	public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-    	  Node result = null;
-    	  ObservableList<Node> childrens = gridPane.getChildren();
-
-    	  for (Node node : childrens) {
-    	    if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-    	      result = node;
-    	      break;
-    	    }
-    	  }
-
-    	  return result;
-    	}
+//    @SuppressWarnings("static-access")
+//	public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+//    	  Node result = null;
+//    	  ObservableList<Node> childrens = gridPane.getChildren();
+//
+//    	  for (Node node : childrens) {
+//    	    if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+//    	      result = node;
+//    	      break;
+//    	    }
+//    	  }
+//
+//    	  return result;
+//    	}
 
 	
 
@@ -284,6 +244,7 @@ public class HomeController implements Initializable {
 		//goes back to home page
 		home.setVisible(true);
 		timetable.setVisible(false);
+		
     }
 	
 	@FXML
@@ -293,9 +254,10 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
-		timetable_grid.setVisible(true);
-		tableoption_hbox.setVisible(false);
-		database_pane.setVisible(false);
+		timetable_grid.setVisible(false);
+		structure_pane.setVisible(false);
+		coursetable_pane.setVisible(false);
+		scheduledtable_pane.setVisible(false);
 		//switch option boxes
 		ttoptionbox.setVisible(true);
 		tableoption_hbox.setVisible(false);
@@ -310,9 +272,9 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
-		timetable_grid.setVisible(false);
+//		timetable_grid.setVisible(false);
 		coursetable_pane.setVisible(true);
-		database_pane.setVisible(false);
+		structure_pane.setVisible(false);
 		//switch option boxes
 		tableoption_hbox.setVisible(true);
 		ttoptionbox.setVisible(false);
@@ -325,28 +287,15 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
-		timetable_grid.setVisible(false);
+//		timetable_grid.setVisible(false);
 		coursetable_pane.setVisible(false);
 		scheduledtable_pane.setVisible(false);
-		structure_gridPane.setVisible(true);
-		database_pane.setVisible(false);
+		structure_pane.setVisible(true);
 		//switch option boxes
 		tableoption_hbox.setVisible(false);
 		ttoptionbox.setVisible(false);
     }
 	
-	@FXML
-    void database_tab_onclick(MouseEvent event) {
-		//set the current tab name
-		currenttab_label.setText("Database");
-		
-		//switch panes
-		home.setVisible(false);
-		timetable.setVisible(true);
-		database_pane.setVisible(true);
-		
-		
-    }
 	
 	//buttons
 	@FXML
@@ -400,21 +349,22 @@ public class HomeController implements Initializable {
 		DBConfig.setProperty("ButtonStatus", "Update");
 		String ID;
 		switch($table_name){
-			case "Course Table":
-				try {
-					ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
-					DBConfig.setProperty("ID", ID);
-					new NewCourse();
-				} catch (NullPointerException e) {
-					// TODO: handle exception
-					JOptionPane.showMessageDialog(null, "Select item to update");
-				}
 			case "Room Table":
 				try {
 					ID = String.valueOf(roomtable.getSelectionModel().getSelectedItem().getID());
 					DBConfig.setProperty("ID", ID);
 					new Room();
 				} catch (NullPointerException e) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Select item to update");
+				}
+				break;
+			case "Course Table":
+				try {
+					ID = String.valueOf(coursetable.getSelectionModel().getSelectedItem().getID());
+					DBConfig.setProperty("ID", ID);
+					new NewCourse();
+				} catch (Exception e) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(null, "Select item to update");
 				}
@@ -449,11 +399,13 @@ public class HomeController implements Initializable {
 	 
 	@FXML
     void loadtt(ActionEvent event) {
-		ScheduleTableDB.displaySchedule(timetable_grid,sel_dept_cbox.getSelectedItem(),sel_studentLevel_cbox.getSelectedItem());
+		ScheduleTableDB.displaySchedule(sel_dept_cbox.getSelectedItem(), sel_studentLevel_cbox.getSelectedItem(), contents_stackpane);
     }
+	
 	
 	@FXML
     void schedule(ActionEvent event) {
+		ScheduleTableDB.truncate();
 		TimetableGA.schedule();
     }
 	 
@@ -511,14 +463,13 @@ public class HomeController implements Initializable {
   		roomTable_columnbname.setCellValueFactory(new PropertyValueFactory<RoomTableContents,String>("Building_Name"));
   		roomTable_columnrname.setCellValueFactory(new PropertyValueFactory<RoomTableContents,String>("Room_Name"));
   		roomTable_columncapacity.setCellValueFactory(new PropertyValueFactory<RoomTableContents,Integer>("Size"));
-
   		list_Controller_roomTable=RoomTableDB.getDatabaseTable();
   		roomtable.setItems(list_Controller_roomTable);
   	}   
 	//table(coursetable)
 	private void setupTableView_courseTable() {
 		courseTable_columnID.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,Integer>("ID"));
-		courseTable_columncourseName.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("CourseName"));
+//		courseTable_columncourseName.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("CourseName"));
 		courseTable_columncourseCode.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("CourseCode"));
 		courseTable_columnlname.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("LecturerName"));
 		courseTable_columnlinitials.setCellValueFactory(new PropertyValueFactory<SecondSemesterTableContents,String>("LecturerInitials"));
@@ -534,7 +485,7 @@ public class HomeController implements Initializable {
 	//table(Schedule)
 	private void setupTableView_scheduleTable() {
 		scheduledtable_columnID.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,Integer>("ID"));
-		scheduledtable_columncourseName.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("courseName"));
+//		scheduledtable_columncourseName.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("courseName"));
 		scheduledtable_columncourseCode.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("courseCode"));
 		scheduledtable_columnlname.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("lecturerName"));
 		scheduledtable_columnlinitials.setCellValueFactory(new PropertyValueFactory<ScheduleTableContents,String>("lecturerInitials"));
