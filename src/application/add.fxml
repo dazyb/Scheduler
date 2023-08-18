@@ -57,11 +57,19 @@
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </MFXTextField>
-      <MFXTextField fx:id="linitial_field" floatMode="BORDER" floatingText="Initials">
+      <HBox>
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
-      </MFXTextField>
+         <children>
+            <MFXTextField fx:id="linitial_field" floatMode="BORDER" floatingText="Initials" />
+            <MFXComboBox fx:id="creditHours_cbox" floatMode="BORDER" floatingText="Credit Hours" prefHeight="20.0" prefWidth="58.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="2.0" />
+               </HBox.margin>
+            </MFXComboBox>
+         </children>
+      </HBox>
       <Label prefHeight="29.0" prefWidth="370.0" text=" -----------------Groupings &amp; Programme(Optional)-----------------">
          <VBox.margin>
             <Insets top="10.0" />
