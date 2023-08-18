@@ -168,11 +168,11 @@ public class SecondSemesterTableDB {
 		return dept;
 	}
 	
-	public static void addNewCourse(String Department, String CourseName, String LecturerName, String LecturerInitials, int Level, String CourseCode, int noStudents, String Programme, String Groupings){
+	public static void addNewCourse(String Department, String CourseName, String LecturerName, String LecturerInitials, int Level, String CourseCode, int noStudents, String Programme, String Groupings, int creditHours){
 		conn=connectdb();
 		try 
 		{
-			PreparedStatement prest=conn.prepareStatement("insert into SecondSemester(Department,CourseName, LecturerName,LecturerInitials,StudentLevel,CourseCode,NumberOfStudents,Programme,Groupings) values(?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prest=conn.prepareStatement("insert into SecondSemester(Department,CourseName, LecturerName,LecturerInitials,StudentLevel,CourseCode,NumberOfStudents,Programme,Groupings,CreditHours) values(?,?,?,?,?,?,?,?,?,?)");
 			prest.setString(1, Department);
 			prest.setString(2, CourseName);
 			prest.setString(3, LecturerName);
@@ -182,6 +182,7 @@ public class SecondSemesterTableDB {
 			prest.setInt(7, noStudents);
 			prest.setString(8, Programme);
 			prest.setString(9, Groupings);
+			prest.setInt(10, creditHours);
 			prest.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Added Successfully");
@@ -192,11 +193,11 @@ public class SecondSemesterTableDB {
 		}
 	}
 	
-	public static void updateCourse(String code, String cname, int noStudents,int ID, String lin, String lname, String groupings, String programme, String department, int level) {
+	public static void updateCourse(String code, String cname, int noStudents,int ID, String lin, String lname, String groupings, String programme, String department, int level, int creditHours) {
 		conn = connectdb(); 
 		try {
 			PreparedStatement ps = conn.prepareStatement("update SecondSemester set CourseName='"+cname+"', NumberOfStudents='"+noStudents+"' , CourseCode='"+code+"', LecturerInitials='"+lin+"', LecturerName='"+lname+"',"
-					+ " Groupings='"+groupings+"', Programme='"+programme+"', Department='"+department+"', StudentLevel='"+level+"' where ID="+ID+"");
+					+ " Groupings='"+groupings+"', Programme='"+programme+"', Department='"+department+"', StudentLevel='"+level+"',CreditHours="+creditHours+"  where ID="+ID+"");
 			ps.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Row Updated");
 			

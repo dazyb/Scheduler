@@ -16,10 +16,14 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 
 public class ScheduleTableDB {
 	static Connection conn = null;
@@ -35,7 +39,7 @@ public class ScheduleTableDB {
 		}
 	}
 	//truncate table(makes room for new Schedule)
-	public void truncate() {
+	public static void truncate() {
 		conn = connectdb();
 		try {
 			Statement s = conn.createStatement();
@@ -108,7 +112,8 @@ public class ScheduleTableDB {
 	//create a label as a child in the grid pane
 	static Label createNode(String courseCode, String lecturerInitials, String roomName) {
 		Label label = new Label();
-		label.setPrefSize(86, 76);
+		label.setBackground(Background.fill(Paint.valueOf("yellow")));
+		label.setPrefSize(172, 76);
 		label.setStyle("-fx-font-size: 14px;");
 		label.setAlignment(Pos.CENTER);
 		label.setText(courseCode+"\n"+roomName+"\n"+lecturerInitials);
@@ -117,25 +122,26 @@ public class ScheduleTableDB {
 	//header labels(rows)
 	static Label headerRows(String text) {
 		Label label =new Label();
+		label.setPrefSize(86, 76);
 		label.setText(text);
 		label.setAlignment(Pos.CENTER);
-		label.setStyle("-fx-font-size: 14px;");
+		label.setStyle(" -fx-font-size: 14px;");
 		return label;
 	}
 	//header labels(columns)
 	static Label headerColumns(String text) {
 		Label label = new Label();
+		label.setPrefSize(86, 76);
 		label.setText(text);
 		label.setAlignment(Pos.CENTER);
-		label.setStyle("-fx-font-size: 14px;");
+		label.setStyle(" -fx-font-size: 14px;");
 		return label;
 	}
 	
 	//display scheduled timetable from database to grid pane
 	public static void createGridPane(StackPane pane, String[] position, String courseCode, String lecturerInitials, String roomName) {
 		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setGridLinesVisible(true);
+		grid.setId("grid");
 		//grid columns
 		ColumnConstraints column1 = new ColumnConstraints();
 		ColumnConstraints column2 = new ColumnConstraints();
@@ -150,19 +156,19 @@ public class ScheduleTableDB {
 		ColumnConstraints column11 = new ColumnConstraints();
 		ColumnConstraints column12 = new ColumnConstraints();
 		ColumnConstraints column13 = new ColumnConstraints();
-		column1.setPercentWidth(20);
-		column2.setPercentWidth(20);
-		column3.setPercentWidth(20);
-		column4.setPercentWidth(20);
-		column5.setPercentWidth(20);
-		column6.setPercentWidth(20);
-		column7.setPercentWidth(20);
-		column8.setPercentWidth(20);
-		column9.setPercentWidth(20);
-		column10.setPercentWidth(20);
-		column11.setPercentWidth(20);
-		column12.setPercentWidth(20);
-		column13.setPercentWidth(20);
+		column1.setPercentWidth(-1);
+		column2.setPercentWidth(-1);
+		column3.setPercentWidth(-1);
+		column4.setPercentWidth(-1);
+		column5.setPercentWidth(-1);
+		column6.setPercentWidth(-1);
+		column7.setPercentWidth(-1);
+		column8.setPercentWidth(-1);
+		column9.setPercentWidth(-1);
+		column10.setPercentWidth(-1);
+		column11.setPercentWidth(-1);
+		column12.setPercentWidth(-1);
+		column13.setPercentWidth(-1);
 		//grid rows
 		RowConstraints row1 = new RowConstraints();
 		RowConstraints row2 = new RowConstraints();
@@ -170,14 +176,14 @@ public class ScheduleTableDB {
 		RowConstraints row4 = new RowConstraints();
 		RowConstraints row5 = new RowConstraints();
 		RowConstraints row6 = new RowConstraints();
-		row1.setPercentHeight(50);
-		row2.setPercentHeight(50);
-		row3.setPercentHeight(50);
-		row4.setPercentHeight(50);
-		row5.setPercentHeight(50);
-		row6.setPercentHeight(50);
+		row1.setPercentHeight(-1);
+		row2.setPercentHeight(-1);
+		row3.setPercentHeight(-1);
+		row4.setPercentHeight(-1);
+		row5.setPercentHeight(-1);
+		row6.setPercentHeight(-1);
 		//add rows and columns to the grid
-		grid.getColumnConstraints().addAll(column1,column2,column3,column4,column5,column6,column7,column8,column9,column10,column11,column12);
+		grid.getColumnConstraints().addAll(column1,column2,column3,column4,column5,column6,column7,column8,column9,column10,column11,column13);
 		grid.getRowConstraints().addAll(row1,row2,row3,row4,row5,row6);
 		//add headers(rows)
 		grid.add(headerRows("Monday"), 0, 1);
@@ -218,19 +224,19 @@ public class ScheduleTableDB {
 				switch (rowIndex) 
 				{
 					case "MON":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1);
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1, time.get(columnIndex)+1,1);
 						break;
 					case "TUE":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2);
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2, time.get(columnIndex)+1,1);
 						break;
 					case "WED":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3);
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3, time.get(columnIndex)+1,1);
 						break;
 					case "THU":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4);
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4, time.get(columnIndex)+1,1);
 						break;
 					case "FRI":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 5);
+						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 5, time.get(columnIndex)+1,1);
 						break;		
 				}
 				pane.getChildren().add(grid);
