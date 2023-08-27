@@ -25,6 +25,77 @@
 
 <StackPane prefHeight="737.0" prefWidth="1259.0" styleClass="all" stylesheets="@Home.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
+      <AnchorPane fx:id="home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@Home.css">
+         <children>
+            <Label fx:id="welcome_message" layoutX="130.0" layoutY="104.0" prefHeight="111.0" prefWidth="610.0" text="WELCOME " AnchorPane.leftAnchor="130.0">
+               <font>
+                  <Font name="Papyrus" size="36.0" />
+               </font>
+            </Label>
+            <GridPane layoutX="196.0" layoutY="241.0" prefHeight="232.0" prefWidth="796.0" vgap="10.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="300.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane fx:id="timetable_tab" onMouseClicked="#timetable_tab_onclick" prefHeight="330.0" prefWidth="54.0" styleClass="pane" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <FontAwesomeIconView fill="BLUE" glyphName="CALENDAR" layoutX="65.0" layoutY="113.0" size="85" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="110.47142639160154" AnchorPane.topAnchor="32.0" />
+                        <Label alignment="CENTER" layoutX="-44.0" layoutY="133.0" prefHeight="35.0" prefWidth="286.0" text="TimeTable" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="Papyrus" size="30.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="structure_tab" onMouseClicked="#structuretab_onclick" prefHeight="200.0" prefWidth="200.0" styleClass="pane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <FontAwesomeIconView fill="BLUE" glyphName="OBJECT_GROUP" layoutX="102.0" layoutY="104.0" size="83" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="32.0" />
+                        <Label alignment="CENTER" layoutY="128.0" prefHeight="70.0" prefWidth="294.0" text="Structure" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="Papyrus" size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="table_tab" onMouseClicked="#tabletab_onclick" prefHeight="200.0" prefWidth="200.0" styleClass="pane" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <FontAwesomeIconView fill="BLUE" glyphName="TABLE" layoutX="105.0" layoutY="107.0" size="85" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="106.47142639160154" AnchorPane.topAnchor="32.0" />
+                        <Label alignment="CENTER" layoutY="128.0" prefHeight="35.0" prefWidth="286.0" text="Tables" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="Papyrus" size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
+            <FontAwesomeIconView fill="BLUE" glyphName="HOME" layoutX="132.0" layoutY="85.0" size="65" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="29.0" />
+            <HBox layoutX="1.0" layoutY="96.0" prefHeight="15.0" prefWidth="1259.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Pane prefHeight="0.0" prefWidth="1059.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" />
+               </children>
+            </HBox>
+            <ImageView fitHeight="56.0" fitWidth="46.0" layoutX="14.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0">
+               <image>
+                  <Image url="@uccLogo.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="60.0" layoutY="642.0" prefHeight="96.0" prefWidth="554.0" text="University of Cape Coast Scheduler">
+               <font>
+                  <Font name="Papyrus" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="timetable" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
          <children>
             <HBox layoutX="137.0" layoutY="31.0" prefHeight="100.0" prefWidth="1296.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
@@ -57,7 +128,7 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" />
                </children>
             </HBox>
-            <StackPane fx:id="contents_stackpane" layoutX="53.0" layoutY="206.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1219.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="206.0">
+            <StackPane layoutX="53.0" layoutY="206.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1219.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="206.0">
                <children>
                   <AnchorPane fx:id="coursetable_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="1197.0" visible="false">
                      <children>
@@ -113,11 +184,11 @@
                         </TableView>
                      </children>
                   </AnchorPane>
-                  <MFXScrollPane fx:id="structure_pane" visible="false">
+                  <MFXScrollPane fx:id="structure_pane">
                      <content>
-                        <VBox prefHeight="593.0" prefWidth="1129.0">
+                        <VBox prefHeight="425.0" prefWidth="1130.0">
                            <children>
-                              <Label prefHeight="59.0" prefWidth="1130.0" text="Database Connection">
+                              <Label prefHeight="59.0" prefWidth="1130.0" text="Course Structure">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -128,9 +199,10 @@
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -139,47 +211,43 @@
                                     <Insets left="40.0" right="10.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Label prefHeight="35.0" prefWidth="1079.0" text="URL">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                       <GridPane.margin>
-                                          <Insets left="10.0" right="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
                                     <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                        <children>
-                                          <MFXTextField fx:id="connectionUrl_field1" editable="false" floatMode="DISABLED" prefHeight="30.0" prefWidth="709.0">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </MFXTextField>
-                                          <MFXButton fx:id="edit_btn1" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #6f2a80; -fx-text-fill: white;" text="Edit">
-                                             <HBox.margin>
-                                                <Insets left="25.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
+                                          <MFXComboBox fx:id="college_cbox" floatMode="DISABLED" onAction="#select_college" prefHeight="32.0" prefWidth="280.0" text="Default" />
                                        </children>
                                     </HBox>
-                                    <Label prefHeight="53.0" prefWidth="1079.0" text="Type" GridPane.rowIndex="2">
+                                    <Label prefHeight="52.0" prefWidth="360.0" text="College">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin>
                                     </Label>
-                                    <MFXComboBox fx:id="connectionType_cbox1" floatMode="DISABLED" prefHeight="32.0" prefWidth="259.0" promptText="Default (MSSQL)" GridPane.rowIndex="3">
+                                    <Label prefHeight="52.0" prefWidth="360.0" text="Faculty or School" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="52.0" prefWidth="360.0" text="Department" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <MFXComboBox fx:id="faculty_cbox" floatMode="DISABLED" onAction="#select_faculty" prefHeight="32.0" prefWidth="280.0" text="Default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <MFXComboBox fx:id="dept_cbox" floatMode="DISABLED" onAction="#select_department" prefHeight="32.0" prefWidth="280.0" text="Default" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets left="20.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                     </MFXComboBox>
+                                    <MFXButton fx:id="courseStructure_saveBtn" onAction="#save" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: green; -fx-text-fill: white;" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="150.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </MFXButton>
                                  </children>
                               </GridPane>
-                              <Label prefHeight="59.0" prefWidth="1130.0" text="Exports">
+                              <Label prefHeight="59.0" prefWidth="1130.0" text="Export">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -188,68 +256,53 @@
                                  </VBox.margin>
                               </Label>
                               <GridPane>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
+                                </rowConstraints>
                                  <children>
-                                    <Label prefHeight="35.0" prefWidth="1079.0" text="File Path">
+                                    <Label prefHeight="52.0" prefWidth="360.0" text="Export File Path">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
-                                       <GridPane.margin>
-                                          <Insets left="10.0" right="10.0" />
-                                       </GridPane.margin>
                                     </Label>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                    <MFXTextField fx:id="excel_path" floatMode="DISABLED" prefHeight="30.0" prefWidth="1092.0" promptText="File path must include filename.xlsx" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets />
+                                          <Insets right="78.0" />
                                        </GridPane.margin>
-                                       <children>
-                                          <MFXTextField fx:id="excelFilePath" editable="false" floatMode="DISABLED" prefHeight="30.0" prefWidth="709.0">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </MFXTextField>
-                                          <MFXButton fx:id="excelFilePath_edit_btn" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #6f2a80; -fx-text-fill: white;" text="Edit">
-                                             <HBox.margin>
-                                                <Insets left="25.0" />
-                                             </HBox.margin>
-                                          </MFXButton>
-                                       </children>
-                                    </HBox>
+                                    </MFXTextField>
+                                    <MFXButton fx:id="excel_path_save" onAction="#excelPath_save" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: green; -fx-text-fill: white;" text="Set" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="870.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </MFXButton>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="40.0" right="10.0" />
                                  </VBox.margin>
                               </GridPane>
-                              <Label prefHeight="59.0" prefWidth="1130.0" text="Structure">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </VBox.margin>
-                              </Label>
                            </children>
                         </VBox>
                      </content>
                   </MFXScrollPane>
+                  <StackPane fx:id="contents_stackpane" prefHeight="150.0" prefWidth="200.0" visible="false" />
                </children>
             </StackPane>
             <StackPane layoutX="81.0" layoutY="158.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="1179.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0">
                <children>
                   <HBox fx:id="tableoption_hbox" prefHeight="58.0" prefWidth="1155.0" visible="false">
                      <children>
-                        <AnchorPane prefHeight="58.0" prefWidth="154.0">
+                        <AnchorPane prefHeight="50.0" prefWidth="200.0">
                            <children>
-                              <MFXComboBox fx:id="selectTable_cbox" editable="false" floatMode="DISABLED" layoutX="-3.0" layoutY="8.0" prefHeight="32.0" prefWidth="200.0" promptText="Select Table" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
+                              <MFXComboBox fx:id="selectTable_cbox" editable="false" floatMode="DISABLED" layoutX="-3.0" layoutY="20.0" prefHeight="34.0" prefWidth="200.0" promptText="Select Table" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
                            </children>
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets />
                            </HBox.margin>
                         </AnchorPane>
                         <AnchorPane prefHeight="58.0" prefWidth="92.0">
@@ -280,7 +333,7 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <MFXButton fx:id="swap_btn" layoutX="27.0" layoutY="9.0" onAction="#swap" prefHeight="18.0" prefWidth="92.0" rippleColor="#fc9090" style="-fx-background-color: #fc4444; -fx-text-fill: white;" text="Swap" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <MFXButton fx:id="schedule_btn" layoutX="27.0" layoutY="9.0" onAction="#schedule" prefHeight="18.0" prefWidth="92.0" rippleColor="#fa9afa" style="-fx-background-color: #ef43ef; -fx-text-fill: white;" text="Schedule" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="5.0" />
@@ -288,7 +341,7 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <MFXButton fx:id="schedule_btn" layoutX="27.0" layoutY="9.0" onAction="#schedule" prefHeight="18.0" prefWidth="92.0" rippleColor="#fa9afa" style="-fx-background-color: #ef43ef; -fx-text-fill: white;" text="Schedule" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <MFXButton fx:id="export_btn" layoutX="27.0" layoutY="9.0" onAction="#export" prefHeight="18.0" prefWidth="92.0" rippleColor="#ced99352" style="-fx-background-color: #758627; -fx-text-fill: white;" text="Export" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="5.0" />
@@ -296,19 +349,11 @@
                               </AnchorPane>
                            </children>
                         </HBox>
-                        <AnchorPane prefHeight="48.0" prefWidth="162.0">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                           <children>
-                              <MFXTextField fx:id="current_table_name" editable="false" floatMode="DISABLED" layoutX="45.0" layoutY="12.0" prefHeight="4.0" prefWidth="162.0" promptText="Current Table Name" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
                      </children>
                   </HBox>
-                  <HBox fx:id="ttoptionbox" prefHeight="100.0" prefWidth="200.0" visible="false">
+                  <HBox fx:id="ttoptionbox" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane prefHeight="48.0" prefWidth="362.0">
                            <children>
                               <MFXComboBox fx:id="sel_dept_cbox" floatMode="DISABLED" layoutX="-2.0" layoutY="5.0" promptText="Department" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
                            </children>
@@ -332,91 +377,31 @@
                               <MFXButton fx:id="load_tt_btn" layoutX="1.0" layoutY="11.0" onAction="#loadtt" prefHeight="26.0" prefWidth="86.0" rippleColor="#b5f2b5" style="-fx-background-color: #0dd70d; -fx-text-fill: white;" text="Load" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="48.0" prefWidth="113.0">
-                           <children>
-                              <MFXButton fx:id="clearTT" layoutX="1.0" layoutY="11.0" onAction="#clear" prefHeight="26.0" prefWidth="86.0" rippleColor="#f2a5a5" style="-fx-background-color: #ef3939; -fx-text-fill: white;" text="Clear" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </AnchorPane>
                      </children>
                   </HBox>
                </children>
             </StackPane>
             <MFXButton layoutX="75.0" layoutY="687.0" onAction="#back" prefHeight="32.0" prefWidth="97.0" rippleColor="#fc8686" style="-fx-background-color: red; -fx-text-fill: white;" text="Back" AnchorPane.leftAnchor="48.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@Home.css">
-         <children>
-            <Label fx:id="welcome_message" layoutX="130.0" layoutY="104.0" prefHeight="111.0" prefWidth="610.0" text="WELCOME " AnchorPane.leftAnchor="130.0">
-               <font>
-                  <Font name="Papyrus" size="36.0" />
-               </font>
-            </Label>
-            <GridPane layoutX="196.0" layoutY="241.0" prefHeight="232.0" prefWidth="796.0" vgap="10.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="300.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            <HBox fx:id="down_hbox" layoutX="208.0" layoutY="675.0" prefHeight="50.0" prefWidth="996.0" visible="false" AnchorPane.bottomAnchor="12.999999999999979" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="71.20000000000005" AnchorPane.topAnchor="675.0">
                <children>
-                  <AnchorPane fx:id="timetable_tab" onMouseClicked="#timetable_tab_onclick" prefHeight="330.0" prefWidth="54.0" styleClass="pane" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                  <AnchorPane prefHeight="48.0" prefWidth="162.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
                      <children>
-                        <FontAwesomeIconView fill="BLUE" glyphName="CALENDAR" layoutX="65.0" layoutY="113.0" size="85" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="110.47142639160154" AnchorPane.topAnchor="32.0" />
-                        <Label alignment="CENTER" layoutX="-44.0" layoutY="133.0" prefHeight="35.0" prefWidth="286.0" text="TimeTable" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <font>
-                              <Font name="Papyrus" size="30.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
+                        <MFXTextField fx:id="current_table_name" editable="false" floatMode="DISABLED" layoutX="45.0" layoutY="12.0" prefHeight="4.0" prefWidth="162.0" promptText="Current Table Name" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="structure_tab" onMouseClicked="#structuretab_onclick" prefHeight="200.0" prefWidth="200.0" styleClass="pane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                  <AnchorPane prefHeight="50.0" prefWidth="359.0">
                      <children>
-                        <FontAwesomeIconView fill="BLUE" glyphName="OBJECT_GROUP" layoutX="102.0" layoutY="104.0" size="83" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="32.0" />
-                        <Label alignment="CENTER" layoutY="128.0" prefHeight="70.0" prefWidth="294.0" text="Structure" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <font>
-                              <Font name="Papyrus" size="31.0" />
-                           </font>
-                        </Label>
+                        <MFXTextField fx:id="searchbar" floatMode="DISABLED" layoutX="45.0" layoutY="12.0" onKeyPressed="#search" prefHeight="4.0" prefWidth="162.0" promptText="            Search Table" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </AnchorPane>
-                  <AnchorPane fx:id="table_tab" onMouseClicked="#tabletab_onclick" prefHeight="200.0" prefWidth="200.0" styleClass="pane" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                     <children>
-                        <FontAwesomeIconView fill="BLUE" glyphName="TABLE" layoutX="105.0" layoutY="107.0" size="85" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="106.47142639160154" AnchorPane.topAnchor="32.0" />
-                        <Label alignment="CENTER" layoutY="128.0" prefHeight="35.0" prefWidth="286.0" text="Tables" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <font>
-                              <Font name="Papyrus" size="31.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </GridPane>
-            <FontAwesomeIconView fill="BLUE" glyphName="HOME" layoutX="132.0" layoutY="85.0" size="65" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="29.0" />
-            <FontAwesomeIconView fx:id="close" glyphName="CLOSE" layoutX="1202.0" layoutY="45.0" size="40" />
-            <HBox layoutX="1.0" layoutY="96.0" prefHeight="15.0" prefWidth="1259.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Pane prefHeight="0.0" prefWidth="1059.0" style="-fx-background-color: blue;" HBox.hgrow="ALWAYS" />
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" />
                </children>
             </HBox>
-            <ImageView fitHeight="56.0" fitWidth="46.0" layoutX="385.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="385.0">
-               <image>
-                  <Image url="@uccLogo.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="446.0" layoutY="610.0" prefHeight="96.0" prefWidth="266.0" text="University Of Cape Coast &#10;Scheduler&#10;">
-               <font>
-                  <Font name="Papyrus" size="18.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>

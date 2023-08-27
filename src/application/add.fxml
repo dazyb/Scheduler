@@ -88,11 +88,6 @@
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </MFXTextField>
-      <MFXComboBox fx:id="semester_cbox" floatMode="BORDER" floatingText="Semester(First/Second)" prefHeight="34.0" prefWidth="348.0">
-         <VBox.margin>
-            <Insets left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
-      </MFXComboBox>
       <AnchorPane prefHeight="47.0" prefWidth="370.0">
          <VBox.margin>
             <Insets />
