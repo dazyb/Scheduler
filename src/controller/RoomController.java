@@ -58,9 +58,15 @@ public class RoomController implements Initializable{
     	switch($button_state) {
     		case "Update":
     			RoomTableDB.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    			final Node source = (Node) event.getSource();
+    		   	final Stage stage = (Stage) source.getScene().getWindow();
+    		   	stage.close();
     			break;
     		case "Add":
     			RoomTableDB.add(buildingname_field.getText(), roomname_field.getText(), Integer.parseInt(capacity_field.getText()));
+    			final Node source1 = (Node) event.getSource();
+    		   	final Stage stage1 = (Stage) source1.getScene().getWindow();
+    		   	stage1.close();
     			break;
     	}
 //    	clear();

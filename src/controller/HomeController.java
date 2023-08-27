@@ -1,9 +1,9 @@
 package controller;
 
+import java.io.IOException;
+
 import java.net.URL;
-
-
-
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -28,17 +28,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import model.SecondSemesterTableDB;
+import model.CoursesExport;
 import model.DBConfig;
+import model.Faculty;
 import model.TimetableGA;
 import model.RoomTableContents;
 import model.RoomTableDB;
+import model.RoomsExport;
 import model.ScheduleTableDB;
+import model.ScheduledExports;
+import model.Search;
 import model.ScheduleTableContents;
 import model.SecondSemesterTableContents;
 
@@ -82,7 +89,7 @@ public class HomeController implements Initializable {
     @FXML
     private MFXComboBox<String> selectTable_cbox;
     @FXML
-    private MFXButton swap_btn;   
+    private MFXButton export_btn;   
     @FXML
     private MFXButton schedule_btn;   
     @FXML
@@ -165,17 +172,33 @@ public class HomeController implements Initializable {
     private StackPane contents_stackpane;
     @FXML
     private HBox hbox;
+    @FXML
+    private MFXTextField searchbar;
+    @FXML
+    private MFXComboBox<String> college_cbox;
+    @FXML
+    private MFXComboBox<String> faculty_cbox;
+    @FXML
+    private MFXComboBox<String> dept_cbox;
+    @FXML
+    private HBox down_hbox;
+    @FXML
+    private MFXButton excel_path_save;
+    @FXML
+    private MFXTextField excel_path;
+
+
+
     
-    @SuppressWarnings("unlikely-arg-type")
-	@FXML
-    void clear(ActionEvent event) {
-    	contents_stackpane.getChildren().remove("timetable_grid");
-    }
+
     
     //combo_box items
     ObservableList<String> table_list = FXCollections.observableArrayList("Course Table","Scheduled Table","Room Table");
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
-    ObservableList<String> dept_list = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
+    ObservableList<String> dept_list = FXCollections.observableArrayList(Faculty.get_Department(DBConfig.configuration().getProperty("faculty").toString()));
+    ObservableList<String> col_list = FXCollections.observableArrayList(Faculty.get_College());
+    ObservableList<String> fal_list = FXCollections.observableArrayList(Faculty.get_Faculty());
+    
 //    ObservableList<String> type_list =FXCollections.observableArrayList("MSSQL","MySQL");
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -186,53 +209,17 @@ public class HomeController implements Initializable {
 			sel_dept_cbox.setItems(dept_list);
 			sel_studentLevel_cbox.setItems(level_list);
 			
-//			
-//			connectionUrl_field.setText(DBConfig.configuration().getProperty("jdbcUrl").toString());
-//			connectionType_cbox.setItems(type_list);
+			college_cbox.setItems(col_list);
 			
-			
-			
-//			timetable_grid.add(add_btn, 1, 1, 2, 1);
-//			timetable_grid.add(currenttab_label, 1, 2, 3, 1);
-////			timetable_grid.add(welcome_message, 0, 2, 1, 1);
-////			timetable_grid.add(currenttab_icon, 1, 1, 2, 1);
-////			ColumnConstraints col1 = new ColumnConstraints();
-////			col1.setPercentWidth(40);
-////			ColumnConstraints col2 = new ColumnConstraints();
-////			col1.setPercentWidth(10);
-////			ColumnConstraints col3 = new ColumnConstraints();
-////			col1.setPercentWidth(50);
-////			timetable_grid.getColumnConstraints().addAll(col3);
+			DBConfig.setProperty("random", college_cbox.getSelectedItem());
+			//excel_path.setText(DBConfig.configuration().getProperty("exportPath").toString());
+
 	}
     
-//    boolean removeFromPane() {
-//        for (final Node node : this.timetable_grid.getChildren()) {
-//            if (node != null 
-//                  && node.getId() != null
-//                 ) {
-//                return this.timetable_grid.getChildren().remove(node);
-//            }
-//        }
-//        return false;
-//    }
-     
+
     
   
     //methods
-//    @SuppressWarnings("static-access")
-//	public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-//    	  Node result = null;
-//    	  ObservableList<Node> childrens = gridPane.getChildren();
-//
-//    	  for (Node node : childrens) {
-//    	    if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-//    	      result = node;
-//    	      break;
-//    	    }
-//    	  }
-//
-//    	  return result;
-//    	}
 
 	
 
@@ -240,11 +227,58 @@ public class HomeController implements Initializable {
 	//adding functions to ui components
 	//clickables(navigation panes)----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	@FXML
+    void excelPath_save(ActionEvent event) {
+		DBConfig.setProperty("exportPath", excel_path.getText());
+		JOptionPane.showMessageDialog(null, "Path Saved Succefully");
+    }
+	
+	@FXML
+    void export(ActionEvent event) throws SQLException, IOException {
+		String getTable = current_table_name.getText();
+		String getPath = DBConfig.configuration().getProperty("exportPath").toString();
+		switch(getTable) {
+			case "Course Table":
+				CoursesExport.export_courses(getPath);
+				break;
+			case "Schedule Table":
+				ScheduledExports.export_courses(getPath);
+				break;
+			case "Rooms Table":
+				RoomsExport.export_courses(getPath);
+				break;
+		}
+    }
+	
+	@FXML
+    void search(KeyEvent event) {
+		if(event.getCode().equals(KeyCode.ENTER)) {
+			String table_name = current_table_name.getText();
+			String search_key = searchbar.getText();
+			if(searchbar.getLength()!=0) {
+				switch(table_name) {
+				case "Course Table":
+					coursetable.setItems(Search.search_semester("SecondSemester", search_key));
+					break;
+				case "Scheduled Table":
+					scheduledtable.setItems(Search.search_scheduled("Schedule", search_key));
+					break;
+				case "Room Table":
+					roomtable.setItems(Search.search_room("Rooms", search_key));
+					break;
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Please A Search Key");
+			}
+		}
+    }
+	
+	
+	
+	@FXML
     void back(ActionEvent event) {
 		//goes back to home page
 		home.setVisible(true);
 		timetable.setVisible(false);
-		
     }
 	
 	@FXML
@@ -254,15 +288,16 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
-		timetable_grid.setVisible(false);
+		contents_stackpane.setVisible(true);
 		structure_pane.setVisible(false);
 		coursetable_pane.setVisible(false);
 		scheduledtable_pane.setVisible(false);
+		roomtable_pane.setVisible(false);
 		//switch option boxes
 		ttoptionbox.setVisible(true);
 		tableoption_hbox.setVisible(false);
-		
-		
+		down_hbox.setVisible(false);
+
 	}
 	
 	@FXML
@@ -272,11 +307,13 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
+		contents_stackpane.setVisible(false);
 //		timetable_grid.setVisible(false);
 		coursetable_pane.setVisible(true);
 		structure_pane.setVisible(false);
 		//switch option boxes
 		tableoption_hbox.setVisible(true);
+		down_hbox.setVisible(true);
 		ttoptionbox.setVisible(false);
     }
 	
@@ -287,6 +324,7 @@ public class HomeController implements Initializable {
 		//switch panes(stackpane)
 		home.setVisible(false);
 		timetable.setVisible(true);
+		contents_stackpane.setVisible(false);
 //		timetable_grid.setVisible(false);
 		coursetable_pane.setVisible(false);
 		scheduledtable_pane.setVisible(false);
@@ -294,14 +332,15 @@ public class HomeController implements Initializable {
 		//switch option boxes
 		tableoption_hbox.setVisible(false);
 		ttoptionbox.setVisible(false);
+		down_hbox.setVisible(false);
     }
-	
 	
 	//buttons
 	@FXML
     void loadnewtable(ActionEvent event) {
-		String currentItem = selectTable_cbox.getSelectedItem();
-		switch(currentItem) {
+		try {
+			String currentItem = selectTable_cbox.getSelectedItem();
+			switch(currentItem) {
 			case "Course Table":
 				setupTableView_courseTable();	
 				coursetable_pane.setVisible(true);
@@ -310,9 +349,7 @@ public class HomeController implements Initializable {
 				current_table_name.setText("Course Table");
 				add_btn.setDisable(false);
 				update_btn.setDisable(false);
-				swap_btn.setDisable(true);
-				schedule_btn.setDisable(true);
-				
+				schedule_btn.setDisable(true);	
 				break;
 			case "Scheduled Table":
 				coursetable.getItems().clear();
@@ -324,7 +361,6 @@ public class HomeController implements Initializable {
 				current_table_name.setText("Scheduled Table");
 				add_btn.setDisable(true);
 				update_btn.setDisable(true);
-				swap_btn.setDisable(false);
 				schedule_btn.setDisable(false);
 				break;
 			case "Room Table":
@@ -337,10 +373,15 @@ public class HomeController implements Initializable {
 				current_table_name.setText("Room Table");
 				add_btn.setDisable(false);
 				update_btn.setDisable(false);
-				swap_btn.setDisable(true);
 				schedule_btn.setDisable(true);
 				break;
 		}
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Please select a table");
+		}
+
+
     }
 	
 	@FXML
@@ -399,16 +440,39 @@ public class HomeController implements Initializable {
 	 
 	@FXML
     void loadtt(ActionEvent event) {
-		ScheduleTableDB.displaySchedule(sel_dept_cbox.getSelectedItem(), sel_studentLevel_cbox.getSelectedItem(), contents_stackpane);
+		contents_stackpane.getChildren().remove(contents_stackpane.lookup("#grid"));
+		ScheduleTableDB.createGridPane(contents_stackpane, sel_dept_cbox.getSelectedItem(), sel_studentLevel_cbox.getSelectedItem());
     }
 	
 	
 	@FXML
     void schedule(ActionEvent event) {
-		ScheduleTableDB.truncate();
 		TimetableGA.schedule();
     }
+	
+	
+	@FXML
+    void select_college(ActionEvent event) {
+		faculty_cbox.setItems(Faculty.get_Faculty(college_cbox.getSelectedItem()));
+    }
+
+    @FXML
+    void select_department(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    void select_faculty(ActionEvent event) {
+    	dept_cbox.setItems(Faculty.get_Department(faculty_cbox.getSelectedItem()));
+    }
+    
+
 	 
+    @FXML
+    void save(ActionEvent event) {
+    	DBConfig.setProperty("faculty", faculty_cbox.getSelectedItem());
+    	JOptionPane.showMessageDialog(null, "Saved Successfully");
+    }
 //	boolean doPrint(Node n) {
 //		PrinterJob job = PrinterJob.createPrinterJob();
 //		if(job == null)return false;

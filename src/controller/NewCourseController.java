@@ -4,8 +4,11 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import model.SecondSemesterTableDB;
 import model.DBConfig;
+import model.Faculty;
 import model.NewCourse;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -53,7 +56,7 @@ public class NewCourseController implements Initializable{
     
     ObservableList<Integer> level_list = FXCollections.observableArrayList(100,200,300,400);
     ObservableList<String> sem_list = FXCollections.observableArrayList("FirstSemester","SecondSemester");
-    ObservableList<String> dept = FXCollections.observableArrayList(SecondSemesterTableDB.getDepartment());
+    ObservableList<String> dept = FXCollections.observableArrayList(Faculty.get_Department(DBConfig.configuration().getProperty("faculty").toString()));
     ObservableList<Integer> creditHours = FXCollections.observableArrayList(1,2,3);
     
     
@@ -66,17 +69,37 @@ public class NewCourseController implements Initializable{
     
     @FXML
     void addNewCourse(ActionEvent event) {
-    	DBConfig.setProperty("ID", "0");
-    	String $button_state = DBConfig.configuration().getProperty("ButtonStatus").toString();
-    	switch($button_state) {
-    		case "Update":
-    			NewCourse.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
-    					, Integer.parseInt(noStudent_field.getText()), Integer.parseInt(level_cbox.getText()), programme_field.getText(), group_field.getText(), semester_cbox.getSelectedItem());
-    			break;
-    		case "Add":
-    			NewCourse.add(coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
-    					, Integer.parseInt(noStudent_field.getText()), level_cbox.getSelectedItem(), programme_field.getText(), group_field.getText());
-    	}
+    	try {
+        	String $button_state = DBConfig.configuration().getProperty("ButtonStatus").toString();
+        	switch($button_state) {
+        		case "Update":
+        			NewCourse.update(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field.getText(), department_cbox.getText(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
+        					, Integer.parseInt(noStudent_field.getText()), Integer.parseInt(level_cbox.getText()), programme_field.getText(), group_field.getText(),Integer.parseInt(creditHours_cbox.getText()));
+        			final Node source = (Node) event.getSource();
+        		   	final Stage stage = (Stage) source.getScene().getWindow();
+        		   	stage.close();
+        			break;
+        		case "Add":
+        			if(lecturername_field.getText().length()>0&&linitial_field.getText().length()>0) {
+        				NewCourse.add(coursename_field.getText(), department_cbox.getSelectedItem(), coursecode_field.getText(), lecturername_field.getText(), linitial_field.getText()
+            					, Integer.parseInt(noStudent_field.getText()), Integer.parseInt(level_cbox.getSelectedItem().toString()), programme_field.getText(), group_field.getText());
+        				final Node source1 = (Node) event.getSource();
+        			   	final Stage stage1 = (Stage) source1.getScene().getWindow();
+        			   	stage1.close();
+        				break;
+        			}else {
+        				JOptionPane.showMessageDialog(null, "Empty Spaces");
+        			}
+
+        			break;
+        	}
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			final Node source = (Node) event.getSource();
+		   	final Stage stage = (Stage) source.getScene().getWindow();
+		   	stage.close();
+		}
     	
     }
     
@@ -85,12 +108,24 @@ public class NewCourseController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//combo_boxes
 		level_cbox.setItems(level_list);
-		semester_cbox.setItems(sem_list);
 		department_cbox.setItems(dept);
 		creditHours_cbox.setItems(creditHours);
 		//preset ui components(update)
 		add_update_button.setText(DBConfig.configuration().getProperty("ButtonStatus").toString());
+		
+
 		NewCourse.setItems(Integer.parseInt(DBConfig.configuration().getProperty("ID").toString()), coursename_field, coursecode_field, department_cbox, 
-				lecturername_field, linitial_field, noStudent_field, level_cbox, programme_field, group_field, semester_cbox);	
+					lecturername_field, linitial_field, noStudent_field, level_cbox, programme_field, group_field, creditHours_cbox);
+
+		
+			
+	}
+	
+	void clear() {
+		coursename_field.setText("");
+		coursecode_field.setText("");
+		lecturername_field.setText("");
+		linitial_field.setText("");
+		group_field.setText("");
 	}
 }
