@@ -82,4 +82,35 @@ public class RoomTableDB {
 			JOptionPane.showMessageDialog(null, "Update Unsuccessfully\n"+e.getMessage());
 		}
 	}
+	
+	public static void getInnerJoin(){
+		conn = connectdb();
+		try {
+			PreparedStatement ps=conn.prepareStatement("select Schedule.RoomName from Schedule "
+					+ "inner join Rooms on Schedule.RoomName=Rooms.RoomName");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				assignAvailability(rs.getString("RoomName"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	public static void assignAvailability(String roomName) {
+		conn = connectdb();
+		try {
+			PreparedStatement ps = conn.prepareStatement("update Rooms set Status='ASSIGNED' where RoomName='"+roomName+"'");
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	public static void main(String[] args) {
+		RoomTableDB.getInnerJoin();
+	}
+
 }

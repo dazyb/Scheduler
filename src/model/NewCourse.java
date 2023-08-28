@@ -34,10 +34,9 @@ public class NewCourse {
 	public static void add(String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
 			String programme, String group) {
 		conn = connectdb();
-		String current_semester = semester;
 		try {
-			PreparedStatement ps = conn.prepareStatement("insert into "+current_semester+"(CourseName,Department,CourseCode,LecturerName,LecturerInitials,NumberOfStudents,StudentLevel,Programme,Groupings "
-					+ "values (?,?,?,?,?,?,?,?,?))");
+			PreparedStatement ps = conn.prepareStatement("insert into SecondSemester(CourseName,Department,CourseCode,LecturerName,LecturerInitials,NumberOfStudents,StudentLevel,Programme,Groupings) "
+					+ "values (?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, courseName.toUpperCase());
 			ps.setString(2, department.toUpperCase());
 			ps.setString(3, courseCode.toUpperCase());
@@ -56,12 +55,11 @@ public class NewCourse {
 	}
 	
 	public static void update(int id, String courseName, String department, String courseCode, String lecturerName, String lecturerInitials, int numberOfStudents, int level, 
-			String programme, String group, String sem) {
+			String programme, String group, int creditHours) {
 		conn = connectdb();
-		String query = "update "+sem+" set CourseName='"+courseName.toUpperCase()+"',Department='"+department.toUpperCase()+"',CourseCode='"+courseCode.toUpperCase()+"',LecturerName='"+lecturerName.toUpperCase()+"',"
-				+ "LecturerInitials='"+lecturerInitials.toUpperCase()+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programmme='"+programme.toUpperCase()+"',Grouping='"+group.toUpperCase()+"' where ID="+id;
 		try {
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement("update SecondSemester set CourseName='"+courseName.toUpperCase()+"',Department='"+department.toUpperCase()+"',CourseCode='"+courseCode.toUpperCase()+"',LecturerName='"+lecturerName.toUpperCase()+"',"
+					+ "LecturerInitials='"+lecturerInitials.toUpperCase()+"',NumberOfStudents="+numberOfStudents+",StudentLevel="+level+",Programme='"+programme.toUpperCase()+"',Groupings='"+group.toUpperCase()+"', CreditHours="+creditHours+" where ID="+id);;
 			ps.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Updated Successfully");
 		} catch (Exception e) {
@@ -69,13 +67,13 @@ public class NewCourse {
 		}
 	}
 	
-	public static void setItems(int ID, MFXTextField courseName, MFXTextField courseCode, MFXComboBox<String> dept, MFXTextField lname,  MFXTextField linitials,MFXTextField noStudents, MFXComboBox<Integer> level, MFXTextField programme, MFXTextField group,
-			MFXComboBox<String> sem) {
+	public static void setItems(int ID, MFXTextField courseName, MFXTextField courseCode, MFXComboBox<String> dept, MFXTextField lname,  MFXTextField linitials,MFXTextField noStudents, MFXComboBox<Integer> level, MFXTextField programme, MFXTextField group, MFXComboBox<Integer> creditHours) {
 		conn = connectdb();
 		if(ID>0) {
 			try {
 				PreparedStatement ps = conn.prepareStatement("select * from SecondSemester where  ID="+ID);
 				ResultSet rs = ps.executeQuery();
+				
 				while(rs.next()) {
 					courseName.setText(rs.getString("CourseName"));
 					courseCode.setText(rs.getString("CourseCode"));
@@ -86,6 +84,8 @@ public class NewCourse {
 					level.setText(String.valueOf(rs.getInt("StudentLevel")));
 					group.setText(rs.getString("Groupings"));
 					programme.setText(rs.getString("Programme"));
+					creditHours.setText(String.valueOf(rs.getInt("CreditHours")));
+					
 				}
 			} catch (Exception e) {
 				// TODO: handle exception

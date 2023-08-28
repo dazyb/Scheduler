@@ -73,6 +73,8 @@ public class TimetableGA {
      * @return
      */
 	private static Timetable initializeTimetable() {
+		//truncate 
+		ScheduleTableDB.truncate();
 		// Create timetable
 		Timetable timetable = new Timetable();
 
@@ -93,8 +95,6 @@ public class TimetableGA {
 		return timetable;
 	}
 	
-//	public static void main(String[] args) {
-//		schedule();
-//	}
+
 
 }

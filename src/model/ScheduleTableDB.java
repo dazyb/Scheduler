@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -86,33 +87,35 @@ public class ScheduleTableDB {
 		}
 	}
 	//display schedule items in a gridpane
-	public static void displaySchedule(String dept, int level, StackPane pane) {
-		conn =connectdb();
-		String query = "select * from Schedule where Department='"+dept+"' and StudentLevel="+level;
-		try {
-			PreparedStatement ps =  conn.prepareStatement(query);
-			ResultSet rs = ps.executeQuery();
-			String[] position;
-			String rowIndex;
-			String columnIndex;
-			while(rs.next()) {
-				rowIndex = rs.getString("TimeAllocated").substring(0,3);
-				columnIndex = rs.getString("TimeAllocated").substring(4,6);
-				position= new String[] {rowIndex,columnIndex};
-				createGridPane(pane,position,rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName"));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.err.println(e.getMessage());
-		}
-	}
-	
+//	public static void displaySchedule(String dept, int level, StackPane pane) {
+//		conn =connectdb();
+//		ArrayList<String> lname = new ArrayList<String>();
+//		String query = "select * from Schedule where Department='"+dept+"' and StudentLevel="+level;
+//		try {
+//			PreparedStatement ps =  conn.prepareStatement(query);
+//			ResultSet rs = ps.executeQuery();
+//			String[] position;
+//			String rowIndex;
+//			String columnIndex;
+//			while(rs.next()) {
+//				rowIndex = rs.getString("TimeAllocated").substring(0,3);
+//				columnIndex = rs.getString("TimeAllocated").substring(4,6);
+//				lname.add(rs.getString("LecturerName"));
+//				position= new String[] {rowIndex,columnIndex};
+//				createGridPane(pane,position,rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName"));
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.err.println(e.getMessage());
+//		}
+//	}
+//	
 
 	//random methods
 	//create a label as a child in the grid pane
 	static Label createNode(String courseCode, String lecturerInitials, String roomName) {
 		Label label = new Label();
-		label.setBackground(Background.fill(Paint.valueOf("yellow")));
+		label.setBackground(Background.fill(Paint.valueOf("gray")));
 		label.setPrefSize(172, 76);
 		label.setStyle("-fx-font-size: 14px;");
 		label.setAlignment(Pos.CENTER);
@@ -139,9 +142,10 @@ public class ScheduleTableDB {
 	}
 	
 	//display scheduled timetable from database to grid pane
-	public static void createGridPane(StackPane pane, String[] position, String courseCode, String lecturerInitials, String roomName) {
+	public static void createGridPane(StackPane pane,String dept, int level) {
 		GridPane grid = new GridPane();
 		grid.setId("grid");
+		grid.setGridLinesVisible(true);
 		//grid columns
 		ColumnConstraints column1 = new ColumnConstraints();
 		ColumnConstraints column2 = new ColumnConstraints();
@@ -204,42 +208,62 @@ public class ScheduleTableDB {
 		grid.add(headerColumns("03:30 PM\n04:30 PM"), 10, 0);
 		grid.add(headerColumns("04:30 PM\n05:30 PM"), 11, 0);
 		grid.add(headerColumns("05:30 PM\n06:30 PM"), 12, 0);
-		//fill cells
-		//position =  [rowIndex,columnIndex]
-				String rowIndex = position[0];
-				String columnIndex = position[1];
-			    HashMap<String,Integer> time = new HashMap<String,Integer>();
-			    time.put("06", 1);
-			    time.put("07", 2);
-			    time.put("08", 3);
-			    time.put("09", 4);
-			    time.put("10", 5);
-			    time.put("11", 6);
-			    time.put("12", 7);
-			    time.put("01", 8);
-			    time.put("02", 9);
-			    time.put("03", 10);
-			    time.put("04", 11);
-			    time.put("05", 12);
-				switch (rowIndex) 
-				{
-					case "MON":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 1, time.get(columnIndex)+1,1);
-						break;
-					case "TUE":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 2, time.get(columnIndex)+1,1);
-						break;
-					case "WED":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 3, time.get(columnIndex)+1,1);
-						break;
-					case "THU":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 4, time.get(columnIndex)+1,1);
-						break;
-					case "FRI":
-						grid.add(createNode(courseCode,lecturerInitials,roomName), time.get(columnIndex), 5, time.get(columnIndex)+1,1);
-						break;		
-				}
-				pane.getChildren().add(grid);
+		
+		conn =connectdb();
+		ArrayList<String> lname = new ArrayList<String>();
+		String query = "select * from Schedule where Department='"+dept.toUpperCase()+"' and StudentLevel="+level;
+		try {
+			PreparedStatement ps =  conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			String[] position;
+			String rowIndex;
+			String columnIndex;
+			while(rs.next()) {
+				rowIndex = rs.getString("TimeAllocated").substring(0,3);
+				columnIndex = rs.getString("TimeAllocated").substring(4,6);
+				lname.add(rs.getString("LecturerName"));
+				position= new String[] {rowIndex,columnIndex};
+				//fill cells
+				//position =  [rowIndex,columnIndex]
+						String row_Index = position[0];
+						String column_Index = position[1];
+					    HashMap<String,Integer> time = new HashMap<String,Integer>();
+					    time.put("06", 1);
+					    time.put("07", 2);
+					    time.put("08", 3);
+					    time.put("09", 4);
+					    time.put("10", 5);
+					    time.put("11", 6);
+					    time.put("12", 7);
+					    time.put("01", 8);
+					    time.put("02", 9);
+					    time.put("03", 10);
+					    time.put("04", 11);
+					    time.put("05", 12);
+						switch (row_Index) 
+						{
+							case "MON":
+								grid.add(createNode(rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName")), time.get(column_Index), 1, time.get(column_Index)+1,1);
+								break;
+							case "TUE":
+								grid.add(createNode(rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName")), time.get(column_Index), 2, time.get(column_Index)+1,1);
+								break;
+							case "WED":
+								grid.add(createNode(rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName")), time.get(column_Index), 3, time.get(column_Index)+1,1);
+								break;
+							case "THU":
+								grid.add(createNode(rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName")), time.get(column_Index), 4, time.get(column_Index)+1,1);
+								break;
+							case "FRI":
+								grid.add(createNode(rs.getString("CourseCode"),rs.getString("LecturerInitials"),rs.getString("RoomName")), time.get(column_Index), 5, time.get(column_Index)+1,1);
+								break;		
+						}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e.getMessage());
+		}
+		pane.getChildren().add(grid);
 	}
 	
 	

@@ -25,8 +25,8 @@ public class DBConfig {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 	}
+	
 	
 	
 	
